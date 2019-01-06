@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-sm-2">
+  <div class="sidebar ">
+    <h2>Filter</h2>
+    <form name="search" (ngSubmit)="onSearch()" novalidate>
+      <div class="form-group">
+        <input type="text" class="form-control" name="query" [(ngModel)]="query" #q="ngModel"/>
+        </div>
+      <div class="form-group">
+        <button class="btn btn-primary">Search</button>
+      </div>
+    </form>
+    <a href="" class="nav-link d-none d-sm-inline">Sidebar</a>
+    <a href="" class="nav-link">Link</a>
+    <a href="" class="nav-link">Link</a>
+    <a href="" class="nav-link">Link</a>
+    <a href="" class="nav-link">Link</a>
+    <a href="" class="nav-link">Link</a>
+  </div>
+    </div>
+  <div class="col-sm-10">
+
+  <div class="row">
+      <h2>Packages</h2>
+      <div *ngFor="let package of packages; let i = index">
+    <div class="col-md-3">
+      <div class="card" style="max-width:400px">
+        <img class="card-img-top" src="http://127.0.0.1:8887/schonbrunn-palace.jpg" alt="Card image" style="max-width:250px">
+      <div class="card-body">
+        <h4 class="card-title">Holidays in Berlin</h4>
+        <p class="card-text">Visit Berlin ...</p>
+        <a [routerLink]="['/package', package.id]" class="btn btn-primary">See More</a>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
+
+</div>

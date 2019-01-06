@@ -1,0 +1,59 @@
+.left-sidebar{
+  left: 0;
+  right: auto;
+  border-right:1px black;
+  height: 100%;
+}
+
+:root {
+  --sidebar-width: 300px;
+  --toggler-size: 40px;
+}
+
+.menu-toggler {
+  display: block;
+  width: var(--toggler-size);
+  height: var(--toggler-size);
+  position: fixed;
+  top: 50px;
+  left: 50px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.menu-toggler__line {
+  height: calc(var(--toggler-size) / 5);
+  background: Tomato;
+  position: absolute;
+  left: 0;
+  right: 0;
+  animation-name: slidein;
+  animation-duration: .5s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+}
+
+.menu-toggler__line:nth-child(2) {
+  top: calc(var(--toggler-size) / 5 * 2);
+  animation-duration: .6s;
+}
+
+.menu-toggler__line:nth-child(3) {
+  top: calc(var(--toggler-size) / 5 * 4);
+  animation-duration: .7s;
+}
+
+.input-toggler {
+  display: none;
+}
+
+@keyframes slidein {
+  from {
+    left: -200%;
+    right: 200%;
+  }
+  to {
+    left: 0;
+    right: 0;
+  }
+}
