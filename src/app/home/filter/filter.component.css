@@ -1,0 +1,6 @@
+.form-group{
+  padding-right: 20px;
+}
+.form-group select{
+  min-width: 140px;
+}
