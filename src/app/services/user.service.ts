@@ -31,4 +31,8 @@ export class UserService {
   getUserByUsername(userName: string):Observable<User> {
     return this.http.get<User>(this.serverUrl+`/user/${userName}`)
   }
+  getUserList():Observable<User[]>{
+    return this.http.get<User[]>(this.serverUrl+`/users`);
+  }
+
 }

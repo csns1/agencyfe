@@ -1,59 +1,50 @@
-<div id="throbber" style="display:none; min-height:120px;"></div>
-<div id="noty-holder"></div>
+
 <div id="wrapper">
-  <!-- Navigation -->
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/home">
-        <img src="http://127.0.0.1:8887/travel-agency-logo-.jpg" alt="LOGO" >
-      </a>
-    </div>
-    <!-- Top Menu Items -->
-    <ul class="nav navbar-right top-nav " >
-      <li *ngIf="authority" class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{username}} <b class="fa fa-angle-down"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="#"><i class="fa fa-fw fa-user"></i> Edit Profile</a></li>
-          <li><a href="#"><i class="fa fa-fw fa-cog"></i> Change Password</a></li>
-          <li class="divider"></li>
-          <li><a href="#"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
+  <div class="overlay"></div>
+
+  <!-- Sidebar -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+    <ul class="nav sidebar-nav">
+      <li class="sidebar-brand">
+        <a href="#">
+          Travel WW
+        </a>
+      </li>
+      <li>
+        <a class="routerA" routerLink="/home">Home</a>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li>
+            <a class="routerA" routerLink="/admin">User Management</a>
+          </li>
         </ul>
       </li>
-      <li *ngIf="!authority"><a routerLink="auth/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-
-      <li *ngIf="!authority"> <a routerLink="signup"> <span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
     </ul>
-    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-    <div class="collapse navbar-collapse navbar-ex1-collapse"  >
-      <ul class="nav navbar-nav side-nav"  >
-        <li>
-          <a routerLink="/home" data-toggle="collapse" data-target="#submenu-1"><i class="fa fa-fw fa-home"></i> HOME </a>
-        </li>
-        <li>
-          <a href="#" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-fw fa-star"></i>  MENU 2 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
-          <ul id="submenu-2" class="collapse">
-            <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.1</a></li>
-            <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.2</a></li>
-            <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.3</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <!-- /.navbar-collapse -->
   </nav>
+  <!-- /#sidebar-wrapper -->
 
-  <div id="page-wrapper">
-    <div class="container-fluid">
-      <!-- Page Heading -->
-      <div class="row" id="main" >
-        <div class="col-sm-12 col-md-12 well" id="content">
-          <router-outlet></router-outlet>
-        </div>
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+      <span class="hamb-top"></span>
+      <span class="hamb-middle"></span>
+      <span class="hamb-bottom"></span>
+    </button>
+    <div class="container">
+      <div class="row">
+
+         <router-outlet></router-outlet>
       </div>
-      <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
+    <div *ngIf="authority" class="mybutton">
+      <a  (click)="logout()" routerLink="/home"  class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+    </div>
+    <div *ngIf="!authority" class="mybutton">
+      <a routerLink="/auth/login" class="login"><i class="fa fa-sign-in" aria-hidden="true"></i>Login</a>
+    </div>
   </div>
-  <!-- /#page-wrapper -->
-</div><!-- /#wrapper -->
+  <!-- /#page-content-wrapper -->
+
+</div>

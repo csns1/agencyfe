@@ -1,26 +1,17 @@
-<div class="container-fluid">
+<div class="container container mt-4 mb-5">
+  <h3 class="display-4 text-center"> Travel Packages </h3>
+  <hr class="bg-dark mb-4 w-25">
   <div class="row">
-
-  <div class="col-sm-10">
-
-  <div class="row">
-    <h2>Packages</h2></div>
     <home-filter></home-filter>
-<div class="row">
-      <div *ngFor="let package of packages; let i = index">
-    <div class="col-md-3">
-      <div class="card" style="max-width:400px">
-        <img class="card-img-top" src="http://127.0.0.1:8887/schonbrunn-palace.jpg" alt="Card image" style="max-width:250px">
-      <div class="card-body">
-        <h4 class="card-title">Holidays in Berlin</h4>
-        <p class="card-text">Visit Berlin ...</p>
-        <a [routerLink]="['/package', package.id]" class="btn btn-primary">See More</a>
+    <div class="col-md-4" *ngFor="let package of packages;">
+      <div class="card">
+        <img class="card-img-top" src="https://dummyimage.com/350x250/c7c7c7/000.png" alt="Card image cap">
+        <div class="card-block p-3">
+          <h4 class="card-title">HTML</h4>
+          <p class="card-text">When an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          <a href="#" class="btn btn-primary rounded-0 mb-2">Read More</a>
+        </div>
       </div>
     </div>
-    </div>
   </div>
-  </div>
-  </div>
-</div>
-
 </div>

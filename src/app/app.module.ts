@@ -14,6 +14,7 @@ import { AdminComponent } from './admin/admin.component';
 import { httpInterceptorProviders } from './auth/auth-interceptor';
 import { SidebarJSModule } from 'ng-sidebarjs';
 import { FilterComponent } from './home/filter/filter.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FilterComponent } from './home/filter/filter.component';
     RegisterComponent,
     HomeComponent,
     AdminComponent,
-    FilterComponent
+    FilterComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,
