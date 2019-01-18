@@ -25,4 +25,11 @@ export class UserManagementComponent implements OnInit {
     })
   }
 
+  update(user: User) {
+    console.log("update");
+  }
+
+  delete(user: User) {
+    console.log("delete");
+  }
 }
