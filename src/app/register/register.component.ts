@@ -21,8 +21,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit() { }
 
   onSubmit() {
-    console.log(this.form);
-
     this.signupInfo = new SignUpInfo(
       this.form.name,
       this.form.username,

@@ -1,0 +1,51 @@
+
+<div class="container">
+  <a routerLink="/home"> <button type="button" class="btn btn-default btn-sm">
+    <span class="glyphicon glyphicon-chevron-left"></span> Back
+  </button></a>
+  <div class="card">
+    <div class="container-fliud">
+      <div class="wrapper row">
+        <div class="preview col-md-6">
+
+          <div class="preview-pic tab-content">
+            <div class="tab-pane active" id="pic-1"><img src="http://127.0.0.1:8887/p1.jpg" /></div>
+            <div class="tab-pane" id="pic-2"><img src="http://127.0.0.1:8887/p2.jpg" /></div>
+            <div class="tab-pane" id="pic-3"><img src="http://127.0.0.1:8887/p3.jpg" /></div>
+            <div class="tab-pane" id="pic-4"><img src="http://127.0.0.1:8887/p4.jpg" /></div>
+            <div class="tab-pane" id="pic-5"><img src="http://127.0.0.1:8887/p5.jpg" /></div>
+          </div>
+          <ul class="preview-thumbnail nav nav-tabs">
+            <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://127.0.0.1:8887/p1.jpg" /></a></li>
+            <li><a data-target="#pic-2" data-toggle="tab"><img src="http://127.0.0.1:8887/p2.jpg" /></a></li>
+            <li><a data-target="#pic-3" data-toggle="tab"><img src="http://127.0.0.1:8887/p3.jpg" /></a></li>
+            <li><a data-target="#pic-4" data-toggle="tab"><img src="http://127.0.0.1:8887/p4.jpg" /></a></li>
+            <li><a data-target="#pic-5" data-toggle="tab"><img src="http://127.0.0.1:8887/p5.jpg" /></a></li>
+          </ul>
+
+        </div>
+        <div class="details col-md-6">
+          <h3 class="product-title">Travel Package</h3>
+          <p class="product-description">
+            Two nights of gastronomy dining at Michelin starred Il Pellicano with luminous displays by the moon over our bay, and Pelligrill our lovely al fresco restaurant that captures all the freshness of the sea. Rates from € 655 per person.
+
+            The above rate is meant per person in double occupancy, in low and high season (July and August excluded). Rates for other room categories are available. The package includes access to all hotel facilities and services, use of the outdoor heated seawater swimming pool, private access to the sea by the elevator, calidarium and gym at the Pelliclub Health & Beauty, tennis court and garage, soft drinks and snacks from minibar, complimentary Wi-Fi, taxes and service charges. No penalty for written cancellations received at least 7 days prior to arrival in low season and 21 days during high season. In case of cancellation beyond these terms a 50% penalty charge will be applied. In case of no-show or early departure the full amount of the package will be charged.
+          </p>
+          <h4 class="price">Price Per Person: <span>$180</span></h4>
+          <h6 class="">Price Includes:<span></span></h6>
+            <h4>Available Dates &nbsp;<div class="btn-group">
+              <label class="btn btn-primary" [(ngModel)]="radioModel"
+                     btnRadio="Left" tabindex="0" role="button">22 Jan 2019</label>
+              <label class="btn btn-primary" [(ngModel)]="radioModel"
+                     btnRadio="Middle" tabindex="0" role="button">Middle</label>
+              <label class="btn btn-primary" [(ngModel)]="radioModel"
+                     btnRadio="Right" tabindex="0" role="button">Right</label>
+            </div></h4>
+        <button class="btn"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        Buy Now!
+        </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { AdminComponent } from './admin/admin.component';
+import {TravelPackageDetailsComponent} from './travelpackage/travel-package-details/travel-package-details.component';
 
 const routes: Routes = [
     {
@@ -32,7 +33,12 @@ const routes: Routes = [
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'
+    },
+    {
+      path: 'travel-package-details/:id',
+    component: TravelPackageDetailsComponent
     }
+
 ];
 
 @NgModule({

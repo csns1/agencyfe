@@ -18,15 +18,5 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
   this.userName= this.tokenService.getUsername();
-    this.userService.getUserByUsername(this.userName).subscribe(
-      user => {
-        this.user = user;
-        console.log(user);
-      },
-      error => {
-        console.log(error);
-        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-      }
-    );
   }
 }

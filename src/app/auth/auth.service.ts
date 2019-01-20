@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { JwtResponse } from './jwt-response';
 import { AuthLoginInfo } from './login-info';
 import { SignUpInfo } from './signup-info';
+import {User} from '../interfaces/User';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -25,7 +26,7 @@ export class AuthService {
     return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptions);
   }
 
-  signUp(info: SignUpInfo): Observable<string> {
-    return this.http.post<string>(this.signupUrl, info, httpOptions);
+  signUp(info: SignUpInfo): Observable<User> {
+    return this.http.post<User>(this.signupUrl, info, httpOptions);
   }
 }
