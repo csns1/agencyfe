@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { AdminComponent } from './admin/admin.component';
 import {TravelPackageDetailsComponent} from './travelpackage/travel-package-details/travel-package-details.component';
+import { BookingsComponent } from './bookings/bookings.component';
 
 const routes: Routes = [
     {
@@ -20,6 +21,10 @@ const routes: Routes = [
     {
         path: 'admin',
         component: AdminComponent
+    },
+    {
+        path: 'bookings',
+        component: BookingsComponent
     },
     {
         path: 'auth/login',

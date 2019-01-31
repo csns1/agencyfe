@@ -1,0 +1,27 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+  tr.mat-footer-row {
+    font-weight: bold;
+  }
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+    }
+    .else {
+      color:#d3d9de;
+      font-weight:bold;
+      font-size: 18;
+      
+    }

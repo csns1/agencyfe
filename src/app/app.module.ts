@@ -23,6 +23,11 @@ import { TravelPackageDetailsComponent } from './travelpackage/travel-package-de
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { UploadFormComponent } from './uploads/upload-form/upload-form.component';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { BookingsComponent } from './bookings/bookings.component';
+import { MatConfirmDialogComponent } from './matconfirmdialog/matconfirmdialog.component';
+import { MaterialModule } from './material.module';
+import { CdkTableModule } from '@angular/cdk/table';
+
 
 @NgModule({
   declarations: [
@@ -35,8 +40,13 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
     FilterComponent,
     UserManagementComponent,
     TravelPackageDetailsComponent,
-    UploadFormComponent
-  ],
+    UploadFormComponent,
+    BookingsComponent,
+    MatConfirmDialogComponent
+    
+  ], 
+  entryComponents: [MatConfirmDialogComponent],
+ 
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -47,6 +57,8 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     ButtonsModule.forRoot(),
+   MaterialModule,
+   CdkTableModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyD_ZsaDIK6KiJZo1dtLxPTZjhBfrgTZEeA",
       authDomain: "travel-agency-78884.firebaseapp.com",

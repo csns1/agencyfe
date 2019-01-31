@@ -1,0 +1,84 @@
+[
+    {
+
+        "id" :123,
+        "bookDate":"12/07/2019",
+        "booker": {
+            "id": 1,
+          
+            "username": "user1",
+          
+            "valid":true,
+                    
+          
+            "email":"user@user.com",
+            "firstName" :"User",
+            "lastName" :"usr"
+          },
+       
+        "totalPayment": 349,
+        "travelPackage": { 
+            "arrivalTime": "13/08/2019",
+            "id": "0999",
+            "pricePerPerson":89,
+           
+            "packageName":"All IN"}
+
+
+    },
+    {
+
+        "id" :345,
+        "bookDate":"15/07/2019",
+        "booker": {
+            "id": 6,
+          
+            "username": "user5",
+          
+            "valid":true,
+                    
+          
+            "email":"user@user.com",
+            "firstName" :"User",
+            "lastName" :"usr"
+          },
+       
+        "totalPayment": 349,
+        "travelPackage": { 
+            "arrivalTime": "13/08/2019",
+            "id": "0999",
+            "pricePerPerson":89,
+           
+            "packageName":"All IN"}
+
+
+    },
+    {
+
+        "id" :120,
+        "bookDate":"12/09/2019",
+        "booker": {
+            "id": 1,
+          
+            "username": "user45",
+          
+            "valid":true,
+                    
+          
+            "email":"user@user.com",
+            "firstName" :"User",
+            "lastName" :"usr"
+          },
+       
+        "totalPayment": 8889,
+        "travelPackage": { 
+            "arrivalTime": "13/08/2019",
+            "id": "0999",
+            "pricePerPerson":89,
+           
+            "packageName":"winter "}
+
+
+    }
+
+]
