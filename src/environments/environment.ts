@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host:"https://travel-student-agency.herokuapp.com/api/v1/"
+  host:"https://travel-student-agency.herokuapp.com/api/v1"
 };
 
 /*
