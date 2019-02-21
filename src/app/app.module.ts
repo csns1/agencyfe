@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
@@ -28,6 +28,7 @@ import { MaterialModule } from './material.module';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MakePaymentComponent } from './make-payment/make-payment.component';
 import { NgxStripeModule } from 'ngx-stripe';
+import { MatButtonModule, MatCardModule, MatTableModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -44,8 +45,7 @@ import { NgxStripeModule } from 'ngx-stripe';
     BookingsComponent,
     MatConfirmDialogComponent,
     MakePaymentComponent,
-    FormsModule
-    
+        
   ], 
   entryComponents: [MatConfirmDialogComponent],
  
@@ -61,6 +61,12 @@ import { NgxStripeModule } from 'ngx-stripe';
     NgxStripeModule.forRoot('pk_test_m78iHmSm4JWRIukZimfFRel9'),
     ButtonsModule.forRoot(),
    MaterialModule,
+   MatInputModule, 
+   MatButtonModule, 
+   MatCardModule, 
+   MatTableModule, 
+   MatFormFieldModule,
+   ReactiveFormsModule,
    CdkTableModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyD_ZsaDIK6KiJZo1dtLxPTZjhBfrgTZEeA",

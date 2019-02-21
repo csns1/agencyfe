@@ -1,8 +1,22 @@
-Its works
-<form>
-  <input type="text" placeholder="Credit Card #" name="cardNumber">
-  <input type="text" placeholder="Expiration Month" name="expMonth">
-  <input type="text" placeholder="Expiration Year" name="expYear">
-  <input type="text" placeholder="CVC" name="cvc">
-  <button (click)="chargeCreditCard()">Paguaj </button>
-</form>
+<mat-card >
+  <mat-card-header>
+      <mat-card-title>Blini paketen tuaj!</mat-card-title>
+  </mat-card-header>
+     
+<form class="paymentForm"  [formGroup]="paymentForm" (ngSubmit)="chargeCreditCard(paymentForm.value)" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <mat-card-content>
+  <mat-form-field>
+  <input  formControlName="name"  matInput placeholder="Emri"    type="name" name="name"  required/>
+
+  <input  formControlName="email" matInput  placeholder="your email"  type="email" name="email"  required />
+</mat-form-field>
+
+  <ngx-stripe-card  [options]="cardOptions" [elementsOptions]="elementsOptions" ></ngx-stripe-card>
+  <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="!paymentForm.valid">Buy now</button>
+     
+      
+          </mat-card-actions>
+          </mat-card-content>
+          </form>
+</mat-card>
