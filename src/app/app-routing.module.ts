@@ -8,6 +8,7 @@ import { UserComponent } from './user/user.component';
 import { AdminComponent } from './admin/admin.component';
 import {TravelPackageDetailsComponent} from './travelpackage/travel-package-details/travel-package-details.component';
 import { BookingsComponent } from './bookings/bookings.component';
+import {MakePaymentComponent} from './make-payment/make-payment.component';
 
 const routes: Routes = [
     {
@@ -38,6 +39,10 @@ const routes: Routes = [
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'
+    },
+    {
+        path: 'payment',
+        component: MakePaymentComponent
     },
     {
       path: 'travel-package-details/:id',

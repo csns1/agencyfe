@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
@@ -27,7 +26,8 @@ import { BookingsComponent } from './bookings/bookings.component';
 import { MatConfirmDialogComponent } from './matconfirmdialog/matconfirmdialog.component';
 import { MaterialModule } from './material.module';
 import { CdkTableModule } from '@angular/cdk/table';
-
+import { MakePaymentComponent } from './make-payment/make-payment.component';
+import { NgxStripeModule } from 'ngx-stripe';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,9 @@ import { CdkTableModule } from '@angular/cdk/table';
     TravelPackageDetailsComponent,
     UploadFormComponent,
     BookingsComponent,
-    MatConfirmDialogComponent
+    MatConfirmDialogComponent,
+    MakePaymentComponent,
+    FormsModule
     
   ], 
   entryComponents: [MatConfirmDialogComponent],
@@ -56,6 +58,7 @@ import { CdkTableModule } from '@angular/cdk/table';
     ModalModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    NgxStripeModule.forRoot('pk_test_m78iHmSm4JWRIukZimfFRel9'),
     ButtonsModule.forRoot(),
    MaterialModule,
    CdkTableModule,
