@@ -13,10 +13,10 @@ import {PackageDatesDto, PackageDatesPostDto} from '../interfaces/PackageDatesDt
 })
 export class TravelPackageService {
   private serverUrl= environment.host;
-
+  private openServerurl=environment.openHost
   constructor(private http: HttpClient) { }
   getPackageList() {
-    return this.http.get<PackageGetDto[]>(this.serverUrl+`/packages/all`);
+    return this.http.get<PackageGetDto[]>(this.openServerurl+`/packages/all`);
   }
   getPackageById(id:number){
     return this.http.get<PackageGetDto>(this.serverUrl+`/packages/`+id)

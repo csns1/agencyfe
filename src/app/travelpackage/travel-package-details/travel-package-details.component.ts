@@ -17,10 +17,9 @@ export class TravelPackageDetailsComponent implements OnInit {
   radioModel = 'Middle';
   travelPackageDetail:PackageGetDto
   priceRange: string;
-  constructor(private route: ActivatedRoute,private travelPackageService:TravelPackageService) {}
   buy=false;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute,private travelPackageService:TravelPackageService) {}
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -31,7 +30,7 @@ export class TravelPackageDetailsComponent implements OnInit {
       })
     });
 
-    });
+    }
 
   Buy(): void {
     this.buy = !this.buy;
