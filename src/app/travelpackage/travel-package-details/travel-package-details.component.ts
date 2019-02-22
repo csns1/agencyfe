@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import { MakePaymentComponent } from 'src/app/make-payment/make-payment.component';
 // @ts-ignore
 import {PackageGetDto} from '../../interfaces/PackageDtos';
 import {TravelPackageService} from '../../services/travel-package.service';
@@ -10,12 +11,16 @@ import {TravelPackageService} from '../../services/travel-package.service';
   styleUrls: ['./travel-package-details.component.css']
 })
 export class TravelPackageDetailsComponent implements OnInit {
+
   id: number;
   private sub: any;
   radioModel = 'Middle';
   travelPackageDetail:PackageGetDto
   priceRange: string;
   constructor(private route: ActivatedRoute,private travelPackageService:TravelPackageService) {}
+  buy=false;
+
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -26,6 +31,10 @@ export class TravelPackageDetailsComponent implements OnInit {
       })
     });
 
+    });
+
+  Buy(): void {
+    this.buy = !this.buy;
   }
 
   getActiveClass(i: number) {

@@ -4,6 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
@@ -27,6 +29,9 @@ import { BookingsComponent } from './bookings/bookings.component';
 import { MatConfirmDialogComponent } from './matconfirmdialog/matconfirmdialog.component';
 import { MaterialModule } from './material.module';
 import { CdkTableModule } from '@angular/cdk/table';
+import { MakePaymentComponent } from './make-payment/make-payment.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { MatButtonModule, MatCardModule, MatTableModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { TravelPackageListComponent } from './travelpackage/travel-package-list/travel-package-list.component';
 import { TravelPackageEditComponent } from './travelpackage/travel-package-edit/travel-package-edit.component';
 import { LoadingSpinnerComponent } from './commons/loading-spinner/loading-spinner.component';
@@ -50,13 +55,16 @@ import { SelectDropDownModule } from 'ngx-select-dropdown'
     UploadFormComponent,
     BookingsComponent,
     MatConfirmDialogComponent,
+    MakePaymentComponent,
+
+    MatConfirmDialogComponent,
     TravelPackageListComponent,
     TravelPackageEditComponent,
     LoadingSpinnerComponent,
     ProfileComponent,
     DestinationComponent
-    
-  ], 
+
+  ],
   entryComponents: [MatConfirmDialogComponent],
  
   imports: [
@@ -68,8 +76,15 @@ import { SelectDropDownModule } from 'ngx-select-dropdown'
     ModalModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    NgxStripeModule.forRoot('pk_test_m78iHmSm4JWRIukZimfFRel9'),
     ButtonsModule.forRoot(),
    MaterialModule,
+   MatInputModule,
+   MatButtonModule,
+   MatCardModule,
+   MatTableModule,
+   MatFormFieldModule,
+   ReactiveFormsModule,
    CdkTableModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyD_ZsaDIK6KiJZo1dtLxPTZjhBfrgTZEeA",

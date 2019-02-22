@@ -12,6 +12,7 @@ import {TravelPackageListComponent} from './travelpackage/travel-package-list/tr
 import {TravelPackageEditComponent} from './travelpackage/travel-package-edit/travel-package-edit.component';
 import {ProfileComponent} from './user/profile/profile.component';
 import {DestinationComponent} from './admin/destination/destination.component';
+import { MakePaymentComponent } from './make-payment/make-payment.component';
 
 const routes: Routes = [
     {
@@ -42,6 +43,10 @@ const routes: Routes = [
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'
+    },
+    {
+        path: 'payment',
+        component: MakePaymentComponent
     },
     {
       path: 'travel-package-details/:id',
