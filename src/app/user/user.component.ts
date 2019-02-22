@@ -13,13 +13,5 @@ export class UserComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.getUserBoard().subscribe(
-      data => {
-        this.board = data;
-      },
-      error => {
-        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-      }
-    );
   }
 }

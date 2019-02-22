@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
+import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
@@ -27,6 +27,13 @@ import { BookingsComponent } from './bookings/bookings.component';
 import { MatConfirmDialogComponent } from './matconfirmdialog/matconfirmdialog.component';
 import { MaterialModule } from './material.module';
 import { CdkTableModule } from '@angular/cdk/table';
+import { TravelPackageListComponent } from './travelpackage/travel-package-list/travel-package-list.component';
+import { TravelPackageEditComponent } from './travelpackage/travel-package-edit/travel-package-edit.component';
+import { LoadingSpinnerComponent } from './commons/loading-spinner/loading-spinner.component';
+import {LoaderServiceInterceptorService} from './services/loader-service-interceptor.service';
+import { ProfileComponent } from './user/profile/profile.component';
+import { DestinationComponent } from './admin/destination/destination.component';
+import { SelectDropDownModule } from 'ngx-select-dropdown'
 
 
 @NgModule({
@@ -42,7 +49,12 @@ import { CdkTableModule } from '@angular/cdk/table';
     TravelPackageDetailsComponent,
     UploadFormComponent,
     BookingsComponent,
-    MatConfirmDialogComponent
+    MatConfirmDialogComponent,
+    TravelPackageListComponent,
+    TravelPackageEditComponent,
+    LoadingSpinnerComponent,
+    ProfileComponent,
+    DestinationComponent
     
   ], 
   entryComponents: [MatConfirmDialogComponent],
@@ -68,9 +80,15 @@ import { CdkTableModule } from '@angular/cdk/table';
       messagingSenderId: "822784991290"
     }),
     AngularFireStorageModule,
-    ProgressbarModule.forRoot()
+    ProgressbarModule.forRoot(),
+    AngularDateTimePickerModule,
+    SelectDropDownModule
   ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: LoaderServiceInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

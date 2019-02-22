@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TokenStorageService } from '../auth/token-storage.service';
+// @ts-ignore
+import {PackageGetDto} from '../interfaces/PackageDtos';
+import {Observable, of} from 'rxjs';
+import {TravelPackageService} from '../services/travel-package.service';
 
 @Component({
   selector: 'app-home',
@@ -8,21 +12,20 @@ import { TokenStorageService } from '../auth/token-storage.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  packages: any;
+  packages: PackageGetDto[];
   query: any;
 
-  constructor(private token: TokenStorageService) { }
+  constructor(private token: TokenStorageService,private travelPackageService:TravelPackageService) { }
 
   ngOnInit() {
-    this.packages=this.createTestPackage()
+  this.travelPackageService.getPackageList().subscribe(data =>{
+    this.packages = data
+  })
   }
 
   logout() {
     this.token.signOut();
     window.location.reload();
-  }
-  createTestPackage():any{
-    return [{'id':1},{'id':3},{'id':2},{'id':4},{'id':5}]
   }
 
   onSearch() {

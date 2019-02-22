@@ -1,0 +1,117 @@
+<div *ngIf="toBeUpdated" class="container">
+  <h2>Editing Travel Package:</h2>
+  <div class="row">
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" class="form-control" name="name" [(ngModel)]="toBeUpdated.name"   required />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" [(ngModel)]="toBeUpdated.description"  required ></textarea>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary">Edit</button>
+      </div>
+    </form>
+    <hr>
+        <h2 >Destinations</h2>
+        <div class="destinations">
+          <table class="table table-hover" id="destTable" cellspacing="0">
+            <thead>
+            <tr>
+            <th>Destination Name</th>
+            <th>City</th>
+            <th>Number Of Nights</th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+          <tr *ngFor="let destination of allDestinations| async">
+            <td> {{destination.destination.name}}</td>
+            <td>{{destination.destination.city.name}}</td>
+            <td> {{destination.numberOfNights}}</td>
+            <td><button class="btn btn-danger" (click)="removeDestination(destination.destination.id)">Remove</button></td>
+          </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-info" (click)="showDestinationModal()">Add New Destination</button>
+        </div>
+    <hr>
+    <h2 >Dates Available</h2>
+    <div class="dates">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let date of packageDatesObs | async">{{getDate(date.startTime)}} <span class="pull-right"><i class="fa fa-times" aria-hidden="true" (click)="removePackageDate(date.id)"></i></span></li>
+      </ul>
+      <button class="btn btn-info" (click)="showDatesModal()">Add New Date</button>
+    </div>
+  </div>
+  <hr>
+  <h2>Photos</h2>
+  <div class="row" >
+    <div class="col-sm-2 imgUp" *ngFor="let imgSrc of imgObs | async">
+      <div *ngIf="imgSrc=='none'" class="imagePreview"></div>
+      <div class="imagePreview" *ngIf="imgSrc!='none'" [style.backgroundImage]="'url('+ imgSrc +')'"></div>
+      <label *ngIf="imgSrc=='none'" class="btn btn-primary">
+        Upload
+        <input type="file" class="uploadFile img" (change)="importImages($event)" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+      </label>
+      <i class="fa fa-times del"  (click)="removePhoto(imgSrc)"></i>
+    </div>
+    <i class="fa fa-plus imgAdd" (click)="addNewImageTab()"></i>
+  </div>
+</div>
+<ng-template #destinationModal>
+  <div class="container-fluid ">
+
+  <form>
+    <div class="form-group ">
+  <label for="newDestination">Select a new destination to add:</label>
+  <select class="form-control" id="newDestination" [(ngModel)]="newDestination" [ngModelOptions]="{standalone: true}">
+    <option *ngFor="let destination of allDestination" value="{{destination.id}}">{{destination.name}}</option>
+  </select>
+    </div>
+    <div class="form-group">
+      <label for="nrNights" class="col-2 col-form-label">Number</label>
+      <div class="col-10">
+        <input class="form-control" type="number" [(ngModel)]="newDestinationNrNights" [ngModelOptions]="{standalone: true}" id="nrNights">
+      </div>
+    </div>
+    <div class="form-group ">
+
+    <button class="btn btn-success" (click)="addNewDestination()">Add</button>
+    </div>
+  </form>
+  </div>
+</ng-template>
+<ng-template #datesModal>
+  <div class="container-fluid ">
+
+    <form>
+      <div class="form-group ">
+        <label >Start Date:</label>
+        <angular2-date-picker [(ngModel)]="startDate" [settings]="settings " [ngModelOptions]="{standalone: true}"></angular2-date-picker>
+      </div>
+      <div class="form-group ">
+        <label >Arrival Date:</label>
+        <angular2-date-picker [(ngModel)]="arrivalDate" [settings]="settings " [ngModelOptions]="{standalone: true}"></angular2-date-picker>
+      </div>
+      <div class="form-group">
+        <label for="pricePerPerson" class="col-2 col-form-label">Price Per Person</label>
+        <div class="col-10">
+          <input class="form-control" type="number" [(ngModel)]="pricePerPerson" [ngModelOptions]="{standalone: true}" id="pricePerPerson">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="totalPersons" class="col-2 col-form-label">Total Number Of Persons</label>
+        <div class="col-10">
+          <input class="form-control" type="number" [(ngModel)]="totalPersons" [ngModelOptions]="{standalone: true}" id="totalPersons">
+        </div>
+      </div>
+      <div class="form-group ">
+
+        <button class="btn btn-success" (click)="addNewDate()">Add</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

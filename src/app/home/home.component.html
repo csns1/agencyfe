@@ -1,15 +1,16 @@
-<div class="container container mt-4 mb-5">
+<div class="container container mt-4 mb-5" *ngIf="packages">
   <h3 class="display-4 text-center"> Travel Packages </h3>
   <hr class="bg-dark mb-4 w-25">
   <div class="row">
     <home-filter></home-filter>
-    <div class="col-md-4" *ngFor="let package of packages;">
+    <div class="col-md-4" *ngFor="let pck of packages;">
       <div class="card">
-        <img class="card-img-top" src="https://dummyimage.com/350x250/c7c7c7/000.png" alt="Card image cap">
+        <img *ngIf="pck.images.length>0" class="card-img-top" src="{{pck.images[0]}}" alt="Card image cap">
+        <img *ngIf="pck.images.length===0"class="card-img-top" src="https://dummyimage.com/350x250/c7c7c7/000.png" alt="Card image cap">
         <div class="card-block p-3">
-          <h4 class="card-title">HTML</h4>
-          <p class="card-text">When an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-          <a routerLink="/travel-package-details/{{package.id}}" class="btn btn-primary rounded-0 mb-2">Read More</a>
+          <h4 class="card-title">{{pck.name}}</h4>
+          <p class="card-text">{{pck.description.substr(0,120)+"..."}}</p>
+          <a routerLink="/travel-package-details/{{pck.id}}" class="btn btn-primary rounded-0 mb-2">Read More</a>
         </div>
       </div>
     </div>

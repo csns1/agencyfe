@@ -1,0 +1,19 @@
+import {DestinationPerPackageGetDto, DestinationPerPackagePostDto} from './DestinationPerPackagesDtos';
+import {PackageDatesDto, PackageDatesPostDto} from './PackageDatesDto';
+
+export interface PackageGetDto {
+  id: number ;
+  name: String ;
+  description:String;
+  images:Array<String>;
+  destinationList:Array<DestinationPerPackageGetDto>;
+  packageDates:Array<PackageDatesDto>
+}
+
+export interface PackagePostDto {
+  id:number;
+  name:String;
+  description:String;
+  packageDates:Array<PackageDatesPostDto>;
+  destinationList:Array<DestinationPerPackagePostDto>
+}
