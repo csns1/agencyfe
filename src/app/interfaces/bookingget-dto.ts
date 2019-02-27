@@ -1,6 +1,7 @@
 import {User} from './User';
 import {PackageDatesDto} from './PackageDatesDto';
 import {CustomerDto}  from './customerDto';
+import {Token} from 'ngx-stripe';
 
 export interface BookingGetDto {
     id: number,
@@ -8,7 +9,15 @@ export interface BookingGetDto {
     booker: User,
     customerDtoList: Array<CustomerDto>,
     totalPayment: number,
-    travelPackage: PackageDatesDto
-}
-    
+    packageDate: PackageDatesDto
+};
 
+
+export  interface BookingPostDto {
+  id: number,
+  bookerId: number,
+  customerDtos: Array<CustomerDto>,
+  totalPayment: number,
+  packageDateId: number,
+  token:string
+};

@@ -25,4 +25,8 @@ export class UserService {
   updateUser(toBeUpdated: User) :Observable<User>{
     return this.http.put<User>(this.serverUrl+`/user/${toBeUpdated.username}`,toBeUpdated);
   }
+
+  getUserByUsername(username: string) {
+    return this.http.get<User>(this.serverUrl+`/user/${username}`)
+  }
 }

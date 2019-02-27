@@ -1,10 +1,16 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import {FormGroup, FormControl, Validators } from "@angular/forms";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-
-import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } from "ngx-stripe";
-import { PaymentService } from '../services/payment.service';
-import { BookingGetDto } from '../interfaces/bookingget-dto';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ElementOptions, ElementsOptions, StripeCardComponent, StripeService} from 'ngx-stripe';
+import {PaymentService} from '../services/payment.service';
+import {BookingPostDto} from '../interfaces/bookingget-dto';
+import {DataServiceService} from '../services/data-service.service';
+import {CustomerDto} from '../interfaces/customerDto';
+import {PackageDatesDto} from '../interfaces/PackageDatesDto';
+import {TokenStorageService} from '../auth/token-storage.service';
+import {UserService} from '../services/user.service';
+import {BookingService} from '../services/booking.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-makepayment',
@@ -12,13 +18,20 @@ import { BookingGetDto } from '../interfaces/bookingget-dto';
   styleUrls: ['./make-payment.component.css']
 })
 export class MakePaymentComponent implements OnInit {
-  ngOnInit(): void {}  
-  
+  private  customers:Array<CustomerDto>;
+  private packageDates:PackageDatesDto;
+  private totalPayment:string
+   private userId:number;
+  ngOnInit(): void {
+    this.customers= this.dataService.customers;
+    this.packageDates=this.dataService.packageDateR;
+    this.totalPayment='$'+(this.packageDates.pricePerPerson*this.customers.length);
+   this.userService.getUserByUsername( this.tokenService.getUsername()).subscribe(data=>this.userId=data.id);
+  }
+
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
   //stilizim
 
-;
-  Booking :BookingGetDto;
   cardOptions: ElementOptions = {
       style: {
         base: {
@@ -29,20 +42,19 @@ export class MakePaymentComponent implements OnInit {
             color: '#111'
           }
         }
-    }
+    },
+    hidePostalCode:true
   }
 
 
   elementsOptions: ElementsOptions = {
-    locale: 'es'
+    locale: 'en'
   };
  
 
-  constructor(private stripeService: StripeService, private httpclient: HttpClient,private Payment:PaymentService){}
+  constructor(private stripeService: StripeService,private toastr:ToastrService,private bookingService:BookingService,private tokenService:TokenStorageService,private userService:UserService, private httpclient: HttpClient,private Payment:PaymentService,private dataService:DataServiceService){}
     public paymentForm = new FormGroup({
     name: new FormControl("", Validators.required),
-    email: new FormControl("", Validators.required)
-   
     });
     
 
@@ -55,25 +67,17 @@ export class MakePaymentComponent implements OnInit {
           const headers = new HttpHeaders()
           .set('Content-Type', 'application/json');
 
+          let body: BookingPostDto={} as BookingPostDto;
+          body.customerDtos=this.customers;
+          body.packageDateId=this.packageDates.id;
+          body.totalPayment=this.customers.length * this.packageDates.pricePerPerson
+          body.bookerId=this.userId
+          body.token=result.token.id
 
-          let obj = {
-            token: result.token.id,
-            email: formdata["email"],
-            user: formdata["name"],
-            amount: this.Booking.totalPayment,
-            product: this.Booking.id
-
-          }
-
-         
-          this.httpclient.post("http://localhost:8000/payment",
-          JSON.stringify(obj),
-          {headers: headers} ).subscribe( data => {
-            console.log("---- Transaction Data -----");
-            
-            console.log(data);
-          });
-          
+          this.bookingService.addBooking(body).subscribe(data=>{
+            this.toastr.success("Pagesa u krye me sukses!")
+          },()=>{
+            this.toastr.error("Ka ndodhur nje gabim pagesa nuk mund te kryhet")})
        
           console.log(result.token.id);
         }else if(result.error){
@@ -86,13 +90,9 @@ export class MakePaymentComponent implements OnInit {
 
     }
 
-
-  
-
 }
  
    
     
   
  
-   

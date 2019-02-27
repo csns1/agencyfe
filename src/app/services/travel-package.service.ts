@@ -19,7 +19,7 @@ export class TravelPackageService {
     return this.http.get<PackageGetDto[]>(this.openServerurl+`/packages/all`);
   }
   getPackageById(id:number){
-    return this.http.get<PackageGetDto>(this.serverUrl+`/packages/`+id)
+    return this.http.get<PackageGetDto>(this.openServerurl+`/packages/`+id)
   }
   deletePackage(id: number) {
     return this.http.delete<PackageGetDto>(this.serverUrl+`/packages/`+id)
@@ -44,7 +44,7 @@ export class TravelPackageService {
     return this.http.delete(this.serverUrl+`/packages/`+packageId+`/dates/`+dateId)
   }
   getPackageDates(packageId:number){
-    return this.http.get<PackageDatesDto[]>(this.serverUrl+`/packages/`+packageId+`/package-dates`)
+    return this.http.get<PackageDatesDto[]>(this.openServerurl+`/packages/`+packageId+`/package-dates`)
   }
 
   editPackageDetails(packageId: number, packagePostDto: PackagePostDto) {

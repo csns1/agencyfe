@@ -1,9 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import { MakePaymentComponent } from 'src/app/make-payment/make-payment.component';
 // @ts-ignore
 import {PackageGetDto} from '../../interfaces/PackageDtos';
 import {TravelPackageService} from '../../services/travel-package.service';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {CustomerDto} from '../../interfaces/customerDto';
+import {Toast, ToastrService} from 'ngx-toastr';
+import {PackageDatesDto} from '../../interfaces/PackageDatesDto';
+import {DataServiceService} from '../../services/data-service.service';
 
 @Component({
   selector: 'travel-package-details',
@@ -14,12 +19,12 @@ export class TravelPackageDetailsComponent implements OnInit {
 
   id: number;
   private sub: any;
-  radioModel = 'Middle';
+  radioModel= null;
   travelPackageDetail:PackageGetDto
   priceRange: string;
   buy=false;
-
-  constructor(private route: ActivatedRoute,private travelPackageService:TravelPackageService) {}
+  private modal:BsModalRef;
+  constructor(private route: ActivatedRoute,private router:Router,private dataService:DataServiceService,private toastr:ToastrService,private modalService: BsModalService,private travelPackageService:TravelPackageService) {}
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -66,5 +71,54 @@ export class TravelPackageDetailsComponent implements OnInit {
     let year = date.getFullYear();
 
     return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  }
+
+
+
+  fieldArray: Array<CustomerDto> = [];
+  newAttribute: any = {};
+
+  firstField = true;
+  firstFieldName = 'First Item name';
+
+  addFieldValue(index) {
+      this.fieldArray.push(this.newAttribute);
+      this.newAttribute = {};
+  }
+
+  deleteFieldValue(index) {
+    this.fieldArray.splice(index, 1);
+  }
+
+
+  showPopup(tempateRef: TemplateRef<any>) {
+    if(this.radioModel==null){
+      this.toastr.error("Zgjidhni nje Date");
+      return;
+    }
+    this.modal=this.modalService.show(tempateRef);
+
+  }
+
+  openPayment() {
+    var arr=this.fieldArray.filter(e=>e.lastName!=null||e.age!=null||e.firstName!=null);
+    arr.forEach(e=>{
+
+      if(e.firstName==null||e.firstName.trim().length==0){this.toastr.error("Vendosni Emrin");return;}
+      else  if(e.lastName==null||e.lastName.trim().length==0){this.toastr.error("Vendosni Mbiemrin");return;}
+      else if(e.age==null){this.toastr.error("Vendosni Moshen");return;}
+
+    });
+    if(arr.length==0){this.toastr.error("Vendosni te pakten nje person.");return;}
+    this.fieldArray=arr;
+    this.dataService.customers=arr;
+    this.dataService.packageDateR=this.travelPackageDetail.packageDates.filter(e=>e.id==this.radioModel)[0];
+    this.modal.hide();
+    this.router.navigate(['/payment'])
+  }
+
+  changePrice() {
+    let packageDate =  this.travelPackageDetail.packageDates.filter(e=>e.id==this.radioModel)[0];
+    this.priceRange='$'+packageDate.pricePerPerson
   }
 }

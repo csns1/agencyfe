@@ -13,7 +13,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 export class BookingsComponent implements OnInit {
   
-  displayedColumns: string[] = ['id', "name",'date', 'price','cancel'];
+  displayedColumns: string[] = ['id', "name",'booker','date', 'price','cancel'];
   dataSource: MatTableDataSource<BookingGetDto>;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;

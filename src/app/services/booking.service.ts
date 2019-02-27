@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, pipe } from 'rxjs';
-import { BookingGetDto } from '../interfaces/bookingget-dto';
+import {BookingGetDto, BookingPostDto} from '../interfaces/bookingget-dto';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 const httpOptions = {
@@ -20,12 +20,14 @@ export class BookingService {
     constructor(private http: HttpClient) { }
 
     getBookings(): Observable<BookingGetDto[]> {
-      return this.http.get<BookingGetDto[]>(this.testURL)
+      return this.http.get<BookingGetDto[]>(this.serverUrl+`/booking/all`)
     
   .pipe(catchError(this.handleErrors<BookingGetDto[]>('getBookings',[])));
 
   }
-
+  addBooking(body:BookingPostDto){
+      return this.http.post<BookingGetDto>(this.serverUrl+`/booking`,body)
+  }
   deleteBooking (id: number): Observable<any> {
     return this.http.delete(this.serverUrl+`/booking/${id}`)
       .pipe(
