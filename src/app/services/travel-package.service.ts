@@ -53,4 +53,8 @@ export class TravelPackageService {
   createTravelPackage(packagePostDto:PackageGetDto){
     return this.http.post<PackageGetDto>(this.serverUrl+`/packages`,packagePostDto)
   }
+
+  getAllPackageDates() {
+    return this.http.get<PackageDatesDto[]>(this.serverUrl+`/packages/package-dates`)
+  }
 }

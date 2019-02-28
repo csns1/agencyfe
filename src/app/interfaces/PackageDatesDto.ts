@@ -1,4 +1,5 @@
 export interface PackageDatesDto {
+    earnings: number;
     arrivalTime : string,
     id: number,
     pricePerPerson:number,

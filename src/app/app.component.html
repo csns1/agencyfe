@@ -14,11 +14,13 @@
         <a class="routerA" routerLink="/home">Home</a>
       </li>
 
-      <li >
+      <li *ngIf="isAdmin()" >
         <a class="routerA" routerLink="/admin">User Management</a>
       </li>
-      <li><div> <a  routerLink="/bookings" class="routerA bookings">Bookings</a>  </div></li>
-      <li><div> <a  routerLink="/travel-packages" class="routerA">Travel Packages</a>  </div></li>
+      <li *ngIf="authority"><div> <a  routerLink="/bookings" class="routerA bookings">Bookings</a>  </div></li>
+      <li *ngIf="authority&&!isKlient()"><div> <a  routerLink="/travel-packages" class="routerA">Travel Packages</a>  </div></li>
+      <li *ngIf="isAdmin()"><div> <a  routerLink="/admin/destination" class="routerA">Destinations</a>  </div></li>
+      <li *ngIf="isAdmin()"><div> <a  routerLink="admin/package-dates" class="routerA">Travel Package Dates</a>  </div></li>
 
     </ul>
   </nav>

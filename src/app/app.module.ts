@@ -37,6 +37,8 @@ import {LoaderServiceInterceptorService} from './services/loader-service-interce
 import { ProfileComponent } from './user/profile/profile.component';
 import { DestinationComponent } from './admin/destination/destination.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
+import {PrintService} from './services/print.service';
+import { PackageDatesAdminComponent } from './package-dates-admin/package-dates-admin.component';
 
 
 @NgModule({
@@ -54,13 +56,13 @@ import { SelectDropDownModule } from 'ngx-select-dropdown'
     BookingsComponent,
     MatConfirmDialogComponent,
     MakePaymentComponent,
-
     MatConfirmDialogComponent,
     TravelPackageListComponent,
     TravelPackageEditComponent,
     LoadingSpinnerComponent,
     ProfileComponent,
-    DestinationComponent
+    DestinationComponent,
+    PackageDatesAdminComponent
 
   ],
   entryComponents: [MatConfirmDialogComponent],
@@ -101,7 +103,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown'
     provide: HTTP_INTERCEPTORS,
     useClass: LoaderServiceInterceptorService,
     multi: true
-  }],
+  },PrintService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

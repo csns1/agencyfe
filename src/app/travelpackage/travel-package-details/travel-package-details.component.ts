@@ -92,6 +92,9 @@ export class TravelPackageDetailsComponent implements OnInit {
 
 
   showPopup(tempateRef: TemplateRef<any>) {
+    this.fieldArray=[];
+    this.fieldArray.push(this.newAttribute);
+    this.newAttribute = {};
     if(this.radioModel==null){
       this.toastr.error("Zgjidhni nje Date");
       return;

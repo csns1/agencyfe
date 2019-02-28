@@ -11,6 +11,8 @@ export class AppComponent implements OnInit {
   private roles: string[];
   authority: string;
   username:string;
+  admin: boolean;
+  klient: boolean;
   constructor(private tokenStorage: TokenStorageService) { }
   ngOnChanges()
   {
@@ -19,10 +21,10 @@ export class AppComponent implements OnInit {
       this.roles = this.tokenStorage.getAuthorities();
       this.roles.every(role => {
         if (role === 'ADMIN') {
-          this.authority = 'admin';
+          this.authority = 'ADMIN';
           return false;
-        } else if (role === 'ROLE_PM') {
-          this.authority = 'pm';
+        } else if (role === 'KLIENT') {
+          this.authority = 'KLIENT';
           return false;
         }
         this.authority = 'user';
@@ -37,10 +39,11 @@ export class AppComponent implements OnInit {
       this.roles = this.tokenStorage.getAuthorities();
       this.roles.every(role => {
         if (role === 'ADMIN') {
-          this.authority = 'admin';
+          this.authority = 'ADMIN';
+          this.admin=true;
           return false;
-        } else if (role === 'ROLE_PM') {
-          this.authority = 'pm';
+        } else if (role === 'KLIENT') {
+          this.authority = 'KLIENT';
           return false;
         }
         this.authority = 'user';
@@ -83,5 +86,12 @@ export class AppComponent implements OnInit {
   logout(){
     this.tokenStorage.signOut();
     window.location.reload();
+  }
+
+  isKlient() {
+  return this.authority=="KLIENT"
+  }
+  isAdmin(){
+    return this.authority=="ADMIN"
   }
 }

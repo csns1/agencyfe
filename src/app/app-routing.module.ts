@@ -13,6 +13,7 @@ import {TravelPackageEditComponent} from './travelpackage/travel-package-edit/tr
 import {ProfileComponent} from './user/profile/profile.component';
 import {DestinationComponent} from './admin/destination/destination.component';
 import { MakePaymentComponent } from './make-payment/make-payment.component';
+import {PackageDatesAdminComponent} from './package-dates-admin/package-dates-admin.component';
 
 const routes: Routes = [
     {
@@ -66,6 +67,10 @@ const routes: Routes = [
   {
     path:'admin/destination',
     component:DestinationComponent
+  },
+  {
+    path:'admin/package-dates',
+    component:PackageDatesAdminComponent
   }
 ];
 

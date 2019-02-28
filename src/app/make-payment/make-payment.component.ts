@@ -68,7 +68,7 @@ export class MakePaymentComponent implements OnInit {
           .set('Content-Type', 'application/json');
 
           let body: BookingPostDto={} as BookingPostDto;
-          body.customerDtos=this.customers;
+          body.customerList=this.customers;
           body.packageDateId=this.packageDates.id;
           body.totalPayment=this.customers.length * this.packageDates.pricePerPerson
           body.bookerId=this.userId

@@ -28,6 +28,15 @@ export class BookingService {
   addBooking(body:BookingPostDto){
       return this.http.post<BookingGetDto>(this.serverUrl+`/booking`,body)
   }
+  getBookingsByUsername(username:String){
+      return this.http.get<BookingGetDto[]>(this.serverUrl+`/booking/user/`+username);
+  }
+  getBookingsByPackageDateId(id:number){
+      return this.http.get<BookingGetDto[]>(this.serverUrl+`/booking/package-dates/`+id)
+  }
+  getEarningsByPackageDateId(id:number){
+      return this.http.get<number>(this.serverUrl+`/booking/package-dates/earning/`+id)
+  }
   deleteBooking (id: number): Observable<any> {
     return this.http.delete(this.serverUrl+`/booking/${id}`)
       .pipe(

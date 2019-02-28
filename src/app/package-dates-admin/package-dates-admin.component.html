@@ -1,0 +1,25 @@
+<h1>Travel Package Dates </h1>
+<table class="table table-hover" cellspacing="0">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Travel Package Name</th>
+    <th>Price Per Person</th>
+    <th>Start Time</th>
+    <th>Open Vacancies</th>
+    <th>Earnings</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let packageDate of packageDates">
+    <td>{{packageDate.id}}</td>
+    <td>{{packageDate.packageName}}</td>
+    <td>{{packageDate.pricePerPerson}}</td>
+    <td>{{getDate(packageDate.startTime)}}</td>
+    <td>{{packageDate.numberOfPersons}}</td>
+    <td>{{getMoneyString(packageDate.earnings)}}</td>
+  </tr>
+  </tbody>
+</table>
+
