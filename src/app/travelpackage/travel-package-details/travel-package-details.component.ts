@@ -9,6 +9,7 @@ import {CustomerDto} from '../../interfaces/customerDto';
 import {Toast, ToastrService} from 'ngx-toastr';
 import {PackageDatesDto} from '../../interfaces/PackageDatesDto';
 import {DataServiceService} from '../../services/data-service.service';
+import {TokenStorageService} from '../../auth/token-storage.service';
 
 @Component({
   selector: 'travel-package-details',
@@ -24,7 +25,8 @@ export class TravelPackageDetailsComponent implements OnInit {
   priceRange: string;
   buy=false;
   private modal:BsModalRef;
-  constructor(private route: ActivatedRoute,private router:Router,private dataService:DataServiceService,private toastr:ToastrService,private modalService: BsModalService,private travelPackageService:TravelPackageService) {}
+  logged:boolean
+  constructor(private route: ActivatedRoute,private tokenStorageService:TokenStorageService,private router:Router,private dataService:DataServiceService,private toastr:ToastrService,private modalService: BsModalService,private travelPackageService:TravelPackageService) {}
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -33,6 +35,7 @@ export class TravelPackageDetailsComponent implements OnInit {
         this.travelPackageDetail=data;
         this.priceRange=this.getPriceRange();
       })
+      if(this.tokenStorageService.getUsername()!=null)this.logged=true
     });
 
     }

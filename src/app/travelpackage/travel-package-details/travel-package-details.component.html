@@ -49,12 +49,14 @@
                      btnRadio="{{date.id}}" tabindex="0" role="button" (click)="changePrice()">{{getDateFromTime(date.arrivalTime*1000)}}</label>
 
             </div></h4>
-       <button class="btn btn-primary" (click)="showPopup(clients)">
+       <button *ngIf="logged" class="btn btn-primary" (click)="showPopup(clients)">
          <i  class="fa fa-shopping-cart">
         Buy Now!
         </i>
        </button>
-
+        <div *ngIf="!logged" class="error">
+       <p>Login To Buy</p>
+        </div>
 
         </div>
       </div>
