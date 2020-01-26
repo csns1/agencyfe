@@ -39,6 +39,7 @@ import { DestinationComponent } from './admin/destination/destination.component'
 import { SelectDropDownModule } from 'ngx-select-dropdown'
 import {PrintService} from './services/print.service';
 import { PackageDatesAdminComponent } from './package-dates-admin/package-dates-admin.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 
 @NgModule({
@@ -66,7 +67,7 @@ import { PackageDatesAdminComponent } from './package-dates-admin/package-dates-
 
   ],
   entryComponents: [MatConfirmDialogComponent],
- 
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -86,6 +87,7 @@ import { PackageDatesAdminComponent } from './package-dates-admin/package-dates-
    MatFormFieldModule,
    ReactiveFormsModule,
    CdkTableModule,
+    NgxPayPalModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyD_ZsaDIK6KiJZo1dtLxPTZjhBfrgTZEeA",
       authDomain: "travel-agency-78884.firebaseapp.com",

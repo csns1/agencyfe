@@ -11,6 +11,7 @@ import {TokenStorageService} from '../auth/token-storage.service';
 import {UserService} from '../services/user.service';
 import {BookingService} from '../services/booking.service';
 import {ToastrService} from 'ngx-toastr';
+import {IPayPalConfig} from "ngx-paypal";
 
 @Component({
   selector: 'app-makepayment',
@@ -18,81 +19,132 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./make-payment.component.css']
 })
 export class MakePaymentComponent implements OnInit {
-  private  customers:Array<CustomerDto>;
-  private packageDates:PackageDatesDto;
-  private totalPayment:string
-   private userId:number;
+  private customers: Array<CustomerDto>;
+  private packageDates: PackageDatesDto;
+  private totalPayment: string
+  private sum;
+  private userId: number;
+
   ngOnInit(): void {
-    this.customers= this.dataService.customers;
-    this.packageDates=this.dataService.packageDateR;
-    this.totalPayment='$'+(this.packageDates.pricePerPerson*this.customers.length);
-   this.userService.getUserByUsername( this.tokenService.getUsername()).subscribe(data=>this.userId=data.id);
+    this.customers = this.dataService.customers;
+    this.packageDates = this.dataService.packageDateR;
+    this.sum = (this.packageDates.pricePerPerson * this.customers.length)
+    this.totalPayment = '$' + this.sum;
+    this.userService.getUserByUsername(this.tokenService.getUsername()).subscribe(data => this.userId = data.id);
+    this.initConfig();
+
   }
 
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
   //stilizim
 
   cardOptions: ElementOptions = {
-      style: {
-        base: {
-          iconColor: '#111',
-          color: '#111',
-          fontSize:"16px",
-          '::placeholder': {
-            color: '#111'
-          }
+    style: {
+      base: {
+        iconColor: '#111',
+        color: '#111',
+        fontSize: "16px",
+        '::placeholder': {
+          color: '#111'
         }
+      }
     },
-    hidePostalCode:true
+    hidePostalCode: true
   }
 
 
   elementsOptions: ElementsOptions = {
     locale: 'en'
   };
- 
 
-  constructor(private stripeService: StripeService,private toastr:ToastrService,private bookingService:BookingService,private tokenService:TokenStorageService,private userService:UserService, private httpclient: HttpClient,private Payment:PaymentService,private dataService:DataServiceService){}
-    public paymentForm = new FormGroup({
+
+  constructor(private token: TokenStorageService, private stripeService: StripeService, private toastr: ToastrService, private bookingService: BookingService, private tokenService: TokenStorageService, private userService: UserService, private httpclient: HttpClient, private paymentService: PaymentService, private dataService: DataServiceService) {
+  }
+
+  public paymentForm = new FormGroup({
     name: new FormControl("", Validators.required),
-    });
-    
+  });
+  public payPalConfig?: IPayPalConfig;
 
-        
-    chargeCreditCard(formdata: FormData) {
-      this.stripeService.createToken(this.card.getCard(), {name} )
+
+  private initConfig(): void {
+    this.payPalConfig = {
+      clientId: 'AUbGBqVdOf9Sdb00B8jvHH8XGdlVy_wPUynbqEcXGCzczt-vxnLUqcD0wnw062IDDcQzWvrQihzD2TzD',
+      // for creating orders (transactions) on server see
+      // https://developer.paypal.com/docs/checkout/reference/server-integration/set-up-transaction/
+
+      createOrderOnServer: (data) => fetch('http://localhost:8080/payment/create?sum=' + this.sum, {
+        method: 'post',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + this.token.getToken(),
+          'Content-Type': 'application/x-www-form-urlencoded'
+        })
+      })
+        .then((res) => res.json())
+        .then((order) => data.orderID),
+      onApprove: (data, actions) => {
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        actions.order.get().then(details => {
+          console.log('onApprove - you can get full order details inside onApprove: ', details);
+        });
+
+      },
+      onClientAuthorization: (data) => {
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel', data, actions);
+
+      },
+      onError: err => {
+        console.log('OnError', err);
+      },
+      onClick: (data, actions) => {
+        console.log('onClick', data, actions);
+      },
+    };
+  }
+
+
+  chargeCreditCard(formdata: FormData) {
+    this.stripeService.createToken(this.card.getCard(), {name})
       .subscribe(result => {
-        
-        if(result.token){
+
+        if (result.token) {
           const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json');
+            .set('Content-Type', 'application/json');
 
-          let body: BookingPostDto={} as BookingPostDto;
-          body.customerList=this.customers;
-          body.packageDateId=this.packageDates.id;
-          body.totalPayment=this.customers.length * this.packageDates.pricePerPerson
-          body.bookerId=this.userId
-          body.token=result.token.id
+          let body: BookingPostDto = {} as BookingPostDto;
+          body.customerList = this.customers;
+          body.packageDateId = this.packageDates.id;
+          body.totalPayment = this.customers.length * this.packageDates.pricePerPerson
+          body.bookerId = this.userId
+          body.token = result.token.id
 
-          this.bookingService.addBooking(body).subscribe(data=>{
+          this.bookingService.addBooking(body).subscribe(data => {
             this.toastr.success("Pagesa u krye me sukses!")
-          },()=>{
-            this.toastr.error("Ka ndodhur nje gabim pagesa nuk mund te kryhet")})
-       
+          }, () => {
+            this.toastr.error("Ka ndodhur nje gabim pagesa nuk mund te kryhet")
+          })
+
           console.log(result.token.id);
-        }else if(result.error){
+        } else if (result.error) {
           console.log("Vendosni numrat e kartes");
         }
 
       });
 
 
+  }
 
-    }
-
+  payWithPaypal() {
+    this.paymentService.makePayment(this.sum).subscribe(data=>{
+      window.open(  data['redirect_url'], "_blank");
+    })
+  }
 }
- 
-   
-    
-  
- 
+
+
+
+
+
