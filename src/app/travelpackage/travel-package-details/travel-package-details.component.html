@@ -1,7 +1,9 @@
 <div class="container" *ngIf="travelPackageDetail">
-  <a routerLink="/home"> <button type="button" class="btn btn-default btn-sm">
-    <span class="glyphicon glyphicon-chevron-left"></span> Back
-  </button></a>
+  <a routerLink="/home">
+    <button type="button" class="btn btn-default btn-sm">
+      <span class="glyphicon glyphicon-chevron-left"></span> Back
+    </button>
+  </a>
   <div class="card">
     <div class="container-fliud">
       <div class="wrapper row">
@@ -9,9 +11,9 @@
           <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <!--<ol class="carousel-indicators">-->
-              <!--<li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
-              <!--<li data-target="#myCarousel" data-slide-to="1"></li>-->
-              <!--<li data-target="#myCarousel" data-slide-to="2"></li>-->
+            <!--<li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
+            <!--<li data-target="#myCarousel" data-slide-to="1"></li>-->
+            <!--<li data-target="#myCarousel" data-slide-to="2"></li>-->
             <!--</ol>-->
 
             <!-- Wrapper for slides -->
@@ -37,26 +39,30 @@
         <div class="details col-md-6">
           <h3 class="product-title">{{travelPackageDetail.name}}</h3>
           <p class="product-description">
-          {{travelPackageDetail.description}}
+            {{travelPackageDetail.description}}
           </p>
           <h3>
             Destinations
           </h3>
-          <p *ngFor="let dest of travelPackageDetail.destinationList">{{dest.numberOfNights}} nights in {{dest.destination.name}} ({{dest.destination.city.name}}) </p>
+          <p *ngFor="let dest of travelPackageDetail.destinationList">{{dest.numberOfNights}} nights
+            in {{dest.destination.name}} ({{dest.destination.city.name}}) </p>
           <h4 class="price">Price Per Person: <span>{{priceRange}}</span></h4>
-            <h4>Available Dates &nbsp;<div class="btn-group" >
-              <label *ngFor="let date of travelPackageDetail.packageDates" class="btn btn-primary" [(ngModel)]="radioModel"
-                     btnRadio="{{date.id}}" tabindex="0" role="button" (click)="changePrice()">{{getDateFromTime(date.arrivalTime*1000)}}</label>
+          <h4>Available Dates &nbsp;<div class="btn-group">
+            <label *ngFor="let date of travelPackageDetail.packageDates" class="btn btn-primary"
+                   [(ngModel)]="radioModel"
+                   btnRadio="{{date.id}}" tabindex="0" role="button"
+                   (click)="changePrice()">{{getDateFromTime(date.arrivalTime * 1000)}}</label>
 
-            </div></h4>
-       <button *ngIf="logged" class="btn btn-primary" (click)="showPopup(clients)">
-         <i  class="fa fa-shopping-cart">
-        Buy Now!
-        </i>
-       </button>
-        <div *ngIf="!logged" class="error">
-       <p>Login To Buy</p>
-        </div>
+          </div>
+          </h4>
+          <button *ngIf="logged" class="btn btn-primary" (click)="showPopup(clients)">
+            <i class="fa fa-shopping-cart">
+              Buy Now!
+            </i>
+          </button>
+          <div *ngIf="!logged" class="error">
+            <p>Login To Buy</p>
+          </div>
 
         </div>
       </div>
@@ -66,7 +72,7 @@
 <ng-template #clients>
   <div class="container-fluid">
     <br>
-    <div class="row container-fluid">
+    <div class="container-fluid">
       <table class="table table-striped table-bordered col-lg-4">
         <thead>
         <tr>
@@ -84,13 +90,20 @@
         <tr *ngFor="let field of fieldArray; let i = index">
           <td>
             <div class="input-group">
-              <input [(ngModel)]="field.firstName" class="form-control" type="text" name="{{field.firstName}}" placeholder="Emer" required>
-            </div></td><td>
+              <input [(ngModel)]="field.firstName" class="form-control" type="text" name="{{field.firstName}}"
+                     placeholder="Emer" required>
+            </div>
+          </td>
+          <td>
             <div class="input-group">
-              <input [(ngModel)]="field.lastName" class="form-control" type="text" name="{{field.lastName}}" placeholder="Mbiemer" required>
-            </div></td><td>
+              <input [(ngModel)]="field.lastName" class="form-control" type="text" name="{{field.lastName}}"
+                     placeholder="Mbiemer" required>
+            </div>
+          </td>
+          <td>
             <div class="input-group">
-              <input [(ngModel)]="field.age" class="form-control" type="number" name="{{field.age}}" placeholder="Mosha" required>
+              <input [(ngModel)]="field.age" class="form-control" type="number" name="{{field.age}}" placeholder="Mosha"
+                     required>
             </div>
 
           </td>
@@ -98,14 +111,17 @@
 
         </tbody>
       </table>
+  <span class="clearfix"></span>
+      <div class="container-fluid" style="padding-bottom: 30px;">
+        <button class="btn btn-success btn-sm" type="button" (click)="addFieldValue()" >
+          Add Person
+        </button>
+        <span class="clearfix"></span>
 
-      <div class="row container-fluid"> <div class="col-md-8"></div>
-      <div class="float-right col-md-4">
-
-      <button  class="btn btn-success btn-sm" type="button" (click)="addFieldValue()" style="margin-right:10px">Add Person</button>
-      <button class="btn btn-primary btn-sm" type="button" (click)="openPayment()">Buy</button>
+        <div style="float: right">
+          <button class="btn btn-primary btn-sm" type="button" (click)="openPayment()">Buy</button>
+        </div>
       </div>
-      </div>
-      </div>
+    </div>
   </div>
 </ng-template>

@@ -41,16 +41,19 @@ export class MakePaymentComponent implements OnInit {
   cardOptions: ElementOptions = {
     style: {
       base: {
-        iconColor: '#111',
-        color: '#111',
-        fontSize: "16px",
+        iconColor: '#666EE8',
+        color: '#31325F',
+        lineHeight: '40px',
+        fontWeight: 300,
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSize: '18px',
         '::placeholder': {
-          color: '#111'
+          color: '#CFD7E0'
         }
       }
-    },
-    hidePostalCode: true
-  }
+    }
+    ,hidePostalCode:true
+  };
 
 
   elementsOptions: ElementsOptions = {
@@ -138,7 +141,13 @@ export class MakePaymentComponent implements OnInit {
   }
 
   payWithPaypal() {
-    this.paymentService.makePayment(this.sum).subscribe(data=>{
+    let body: BookingPostDto = {} as BookingPostDto;
+    body.customerList = this.customers;
+    body.packageDateId = this.packageDates.id;
+    body.totalPayment = this.customers.length * this.packageDates.pricePerPerson
+    body.bookerId = this.userId;
+
+    this.paymentService.makePayment(body).subscribe(data=>{
       window.open(  data['redirect_url'], "_blank");
     })
   }

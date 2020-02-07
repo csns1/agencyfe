@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders} from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from 'src/environments/environment';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -8,11 +8,11 @@ import {Observable} from 'rxjs';
 })
 export class PaymentService {
 
-  private paymentUrl = 'http://localhost:8080/api/payment';
 
-  private serverUrl= environment.host;
+  private serverUrl = environment.host;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   chargeCard(token: string) {
     let headers: HttpHeaders = new HttpHeaders();
@@ -22,7 +22,13 @@ export class PaymentService {
         console.log(resp);
       })
   }
-  makePayment(sum) {
-    return this.http.post(this.serverUrl+'/payment/create?sum='+sum, {});
+
+  makePayment(booking) {
+    return this.http.post(this.serverUrl + '/payment/create', booking);
   }
+
+  completePayment(completePaymentDto) {
+    return this.http.post(this.serverUrl + '/payment/complete/payment', completePaymentDto);
+  }
+
 }

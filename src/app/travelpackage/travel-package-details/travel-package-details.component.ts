@@ -116,6 +116,7 @@ export class TravelPackageDetailsComponent implements OnInit {
 
     });
     if(arr.length==0){this.toastr.error("Vendosni te pakten nje person.");return;}
+
     this.fieldArray=arr;
     this.dataService.customers=arr;
     this.dataService.packageDateR=this.travelPackageDetail.packageDates.filter(e=>e.id==this.radioModel)[0];

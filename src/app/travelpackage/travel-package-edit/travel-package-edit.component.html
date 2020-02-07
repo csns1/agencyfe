@@ -90,12 +90,9 @@
     <form>
       <div class="form-group ">
         <label >Start Date:</label>
-        <angular2-date-picker [(ngModel)]="startDate" [settings]="settings " [ngModelOptions]="{standalone: true}"></angular2-date-picker>
+        <angular2-date-picker [(ngModel)]="startDate" [settings]="settings " [ngModelOptions]="{standalone: true}"  (ngModelChange)="$event >= today && startDate == $event"></angular2-date-picker>
       </div>
-      <div class="form-group ">
-        <label >Arrival Date:</label>
-        <angular2-date-picker [(ngModel)]="arrivalDate" [settings]="settings " [ngModelOptions]="{standalone: true}"></angular2-date-picker>
-      </div>
+
       <div class="form-group">
         <label for="pricePerPerson" class="col-2 col-form-label">Price Per Person</label>
         <div class="col-10">

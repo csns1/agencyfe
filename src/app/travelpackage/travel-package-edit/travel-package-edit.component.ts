@@ -1,11 +1,11 @@
-import {Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation,ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import * as $ from 'jquery';
-import {combineLatest,Observable} from 'rxjs';
+import {combineLatest, Observable} from 'rxjs';
 import {finalize, map, tap} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
 import {AngularFireStorage} from '@angular/fire/storage';
-import { of } from 'rxjs';
+import {of} from 'rxjs';
 import 'datatables.net';
 import 'datatables.net-bs4';
 
@@ -29,22 +29,22 @@ import {PackageDatesDto, PackageDatesPostDto} from '../../interfaces/PackageDate
 })
 export class TravelPackageEditComponent implements OnInit {
   dataTable: any;
-  id:number;
+  id: number;
   private sub: any;
   pleaseWait: boolean;
   uploads: any[];
   downloadURL: Observable<string>;
-  downloadUrls:string[]=[];
+  downloadUrls: string[] = [];
   allPercentage: Observable<any>;
   toBeUpdated: PackageGetDto;
-  form:PackagePostDto={};
-  allDestinations:Observable<DestinationPerPackageGetDto>;
-  images:string[];
-  imgObs:Observable<string[]>;
-  allDestination:DestinationGetDto[];
+  form: PackagePostDto = {};
+  allDestinations: Observable<DestinationPerPackageGetDto>;
+  images: string[];
+  imgObs: Observable<string[]>;
+  allDestination: DestinationGetDto[];
   newDestination: DestinationGetDto;
-  @ViewChild('destinationModal') newDestinationPopup:TemplateRef<any>;
-  @ViewChild('datesModal') datesModal:TemplateRef<any>;
+  @ViewChild('destinationModal') newDestinationPopup: TemplateRef<any>;
+  @ViewChild('datesModal') datesModal: TemplateRef<any>;
   private nDPopup: BsModalRef;
   private dMPopup: BsModalRef;
   newDestinationNrNights: number;
@@ -54,19 +54,23 @@ export class TravelPackageEditComponent implements OnInit {
   arrivalDate: Date = new Date();
   settings = {
     bigBanner: true,
-    timePicker: true,
-    format: 'yyyy-MM-ddTHH:mm:ss.sssZ',
+    timePicker: false,
+    format: 'yyyy-MM-dd',
     defaultOpen: false,
-    closeOnSelect:true
+    minDate: this.startDate,
+    closeOnSelect: true
   }
   pricePerPerson: number;
   totalPersons: number;
-  constructor(private route: ActivatedRoute,private modalService: BsModalService,private chRef: ChangeDetectorRef,private toastr:ToastrService,private storage:AngularFireStorage,private packageService:TravelPackageService,private destinationService:DestinationService) {}
+  today: Date =new Date();
+
+  constructor(private route: ActivatedRoute, private modalService: BsModalService, private chRef: ChangeDetectorRef, private toastr: ToastrService, private storage: AngularFireStorage, private packageService: TravelPackageService, private destinationService: DestinationService) {
+  }
 
   ngOnInit() {
-    this.pleaseWait=false;
-    this.destinationService.getAllDestinations().subscribe(data=>{
-      this.allDestination=data
+    this.pleaseWait = false;
+    this.destinationService.getAllDestinations().subscribe(data => {
+      this.allDestination = data
       this.chRef.detectChanges();
       const table: any = $('#destTable');
     });
@@ -80,11 +84,11 @@ export class TravelPackageEditComponent implements OnInit {
 
   importImages(event) {
     this.toastr.info("Uploading Photo");
-    this.pleaseWait=true;
+    this.pleaseWait = true;
     this.uploads = [];
     const filelist = event.target.files;
     const allPercentage: Observable<number>[] = [];
-    for (const image of filelist){
+    for (const image of filelist) {
       if (image.type.split('/')[0] !== 'image') {
         this.toastr.error("Only images allowed!", "Check file type!");
         return;
@@ -97,18 +101,17 @@ export class TravelPackageEditComponent implements OnInit {
         task.snapshotChanges().pipe(
           finalize(() => {
             this.downloadURL = fileRef.getDownloadURL();
-            this.downloadURL.subscribe(data=>{
-              this.packageService.addPhotoToPackage(this.id,data).subscribe(
-                dt=>{
+            this.downloadURL.subscribe(data => {
+              this.packageService.addPhotoToPackage(this.id, data).subscribe(
+                dt => {
                   this.toastr.success("Photo Uploaded");
                   this.images.push(data);
-                  this.imgObs=of<string[]>(this.images);
+                  this.imgObs = of<string[]>(this.images);
                   this.removePhoto("none");
                 },
                 error1 => {
                   this.toastr.error("Photo couldn't be downloaded.")
                 }
-
               );
 
 
@@ -130,12 +133,13 @@ export class TravelPackageEditComponent implements OnInit {
   }
 
   addNewImageTab() {
-    if(this.images.indexOf("none")==-1) {
+    if (this.images.indexOf("none") == -1) {
       this.images.push("none");
       this.imgObs = of<string[]>(this.images);
     }
   }
-  removePhoto(img){
+
+  removePhoto(img) {
     let index = this.images.indexOf(img);
     if (index > -1) {
       if (img != "none") {
@@ -150,37 +154,41 @@ export class TravelPackageEditComponent implements OnInit {
 
       }
     }
-}
+  }
 
   onSubmit() {
-    let packagePostDto= {} as PackagePostDto;
-    packagePostDto.description=this.toBeUpdated.description;
-    packagePostDto.name=this.toBeUpdated.name
-    packagePostDto.id=this.id
-    this.packageService.editPackageDetails(this.id,packagePostDto).subscribe(data=>{
+    let packagePostDto = {} as PackagePostDto;
+    packagePostDto.description = this.toBeUpdated.description;
+    packagePostDto.name = this.toBeUpdated.name
+    packagePostDto.id = this.id
+    this.packageService.editPackageDetails(this.id, packagePostDto).subscribe(data => {
       this.toastr.success("Travel Package Details Updated");
-    },e=>this.toastr.error("Travel Package Couldn't Be Updated"));
+    }, e => this.toastr.error("Travel Package Couldn't Be Updated"));
   }
-  initialiseToBeUpdated(){
-    this.packageService.getPackageById(this.id).subscribe(data=>{
-      this.toBeUpdated=data;
-      this.images= this.toBeUpdated.images
-      this.imgObs =  of<string[]>(this.toBeUpdated.images);
-      this.allDestinations= of(this.toBeUpdated.destinationList)
+
+  initialiseToBeUpdated() {
+    this.packageService.getPackageById(this.id).subscribe(data => {
+      this.toBeUpdated = data;
+      this.images = this.toBeUpdated.images
+      this.imgObs = of<string[]>(this.toBeUpdated.images);
+      this.allDestinations = of(this.toBeUpdated.destinationList)
       this.chRef.detectChanges()
-    },error1 => this.toastr.error("An Error Has Happened"));
+    }, error1 => this.toastr.error("An Error Has Happened"));
   }
+
   removeDestination(destination: DestinationPerPackageGetDto) {
-    this.packageService.removeDestination(this.id,destination).subscribe(data=>{
+    this.packageService.removeDestination(this.id, destination).subscribe(data => {
       this.initialiseToBeUpdated();
       this.toastr.success("Destination Removed")
     })
 
   }
-  addDestination(destination:DestinationPerPackagePostDto){
-    this.packageService.addDestination(this.id,destination).subscribe(data=>{
+
+  addDestination(destination: DestinationPerPackagePostDto) {
+    this.packageService.addDestination(this.id, destination).subscribe(data => {
       this.initialiseToBeUpdated();
-    this.toastr.success("Destination Added")})
+      this.toastr.success("Destination Added")
+    })
   }
 
   showDestinationModal() {
@@ -188,37 +196,42 @@ export class TravelPackageEditComponent implements OnInit {
   }
 
   addNewDestination() {
-    let destinationPerPackage: DestinationPerPackagePostDto={};
-    destinationPerPackage.destinationId=+this.newDestination;
-    destinationPerPackage.numberOfNights=this.newDestinationNrNights;
+    let destinationPerPackage: DestinationPerPackagePostDto = {};
+    destinationPerPackage.destinationId = +this.newDestination;
+    destinationPerPackage.numberOfNights = this.newDestinationNrNights;
     this.addDestination(destinationPerPackage);
     this.nDPopup.hide();
   }
-  removePackageDate(dateId){
-    this.packageService.removePackageDate(this.id,dateId).subscribe(data=>{
+
+  removePackageDate(dateId) {
+    this.packageService.removePackageDate(this.id, dateId).subscribe(data => {
       this.initialisePackageDates()
-      this.toastr.success("Date Deleted")})
+      this.toastr.success("Date Deleted")
+    })
   }
+
   getDate(startTime: number) {
-    return new Date(startTime*1000).toDateString()
+    return new Date(startTime * 1000).toDateString()
   }
 
   private initialisePackageDates() {
-    this.packageService.getPackageDates(this.id).subscribe(data=>{
-      this.allPackageDates=data;
+    this.packageService.getPackageDates(this.id).subscribe(data => {
+      this.allPackageDates = data;
       this.packageDatesObs = of(this.allPackageDates)
     })
   }
-  showDatesModal(){
-    this.dMPopup=this.modalService.show(this.datesModal)
+
+  showDatesModal() {
+    this.dMPopup = this.modalService.show(this.datesModal)
   }
+
   addNewDate() {
-    var packageDatePostDto: PackageDatesPostDto={} as PackageDatesPostDto;
-    packageDatePostDto.arrivalTime=new Date(this.arrivalDate).toISOString()
-    packageDatePostDto.startTime=new Date(this.startDate).toISOString()
-    packageDatePostDto.pricePerPerson=this.pricePerPerson;
-    packageDatePostDto.numberOfPersons=this.totalPersons
-    this.packageService.addPackageDate(this.id,packageDatePostDto).subscribe(data=>{
+    var packageDatePostDto: PackageDatesPostDto = {} as PackageDatesPostDto;
+    packageDatePostDto.arrivalTime = new Date().toISOString()
+    packageDatePostDto.startTime = new Date(this.startDate).toISOString()
+    packageDatePostDto.pricePerPerson = this.pricePerPerson;
+    packageDatePostDto.numberOfPersons = this.totalPersons
+    this.packageService.addPackageDate(this.id, packageDatePostDto).subscribe(data => {
       this.toastr.success("Date Added");
       this.initialisePackageDates();
       this.dMPopup.hide();
