@@ -15,7 +15,7 @@ pipelines:
       - step:
           name: 'Create zip'
           script:
-            - tar czfv application.tgz dist -C server .
+            - tar czfv application.tgz dist
           artifacts:
             - application.tgz
       - step:
