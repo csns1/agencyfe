@@ -12,8 +12,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class BookingService {
-  
-  private bookingUrl = 'http://localhost:8080/api/test/booking';
+
+  private bookingUrl = 'https://travel-agency-alb.herokuapp.com/api/test/booking';
   private serverUrl= environment.host;
   private testURL='http://localhost:4200/assets/bookings.json';
 
@@ -21,7 +21,7 @@ export class BookingService {
 
     getBookings(): Observable<BookingGetDto[]> {
       return this.http.get<BookingGetDto[]>(this.serverUrl+`/booking/all`)
-    
+
   .pipe(catchError(this.handleErrors<BookingGetDto[]>('getBookings',[])));
 
   }

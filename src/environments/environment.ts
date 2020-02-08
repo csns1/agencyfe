@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  host:"http://localhost:8080/api/v1",
-  openHost:"http://localhost:8080/open/api/v1"
+  host:"https://travel-agency-alb.herokuapp.com/api/v1",
+  openHost:"https://travel-agency-alb.herokuapp.com/open/api/v1"
 };
 
 /*

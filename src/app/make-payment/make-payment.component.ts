@@ -76,7 +76,7 @@ export class MakePaymentComponent implements OnInit {
       // for creating orders (transactions) on server see
       // https://developer.paypal.com/docs/checkout/reference/server-integration/set-up-transaction/
 
-      createOrderOnServer: (data) => fetch('http://localhost:8080/payment/create?sum=' + this.sum, {
+      createOrderOnServer: (data) => fetch('https://travel-agency-alb.herokuapp.com/payment/create?sum=' + this.sum, {
         method: 'post',
         headers: new Headers({
           'Authorization': 'Bearer ' + this.token.getToken(),

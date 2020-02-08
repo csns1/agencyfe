@@ -16,8 +16,8 @@ const httpOptions = {
 })
 export class AuthService {
 
-  private loginUrl = 'http://localhost:8080/api/login';
-  private signupUrl = 'http://localhost:8080/api/register';
+  private loginUrl = 'https://travel-agency-alb.herokuapp.com/api/login';
+  private signupUrl = 'https://travel-agency-alb.herokuapp.com/api/register';
 
   constructor(private http: HttpClient) {
   }
