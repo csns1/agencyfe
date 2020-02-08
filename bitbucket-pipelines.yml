@@ -1,0 +1,29 @@
+image: node:10
+
+pipelines:
+  branches:
+    master:
+      - step:
+          name: 'Build app'
+          caches:
+            - node
+          script:
+            - npm install --quiet
+            - npm run build --progress=false
+          artifacts:
+            - dist/**
+      - step:
+          name: 'Create zip'
+          script:
+            - tar czfv application.tgz dist -C server .
+          artifacts:
+            - application.tgz
+      - step:
+          name: 'Deploy to Heroku in production'
+          deployment: production
+          script:
+            - pipe: atlassian/heroku-deploy:1.1.1
+              variables:
+                HEROKU_API_KEY: '2f081ea6-6a75-4e46-8472-79a8a447ec13'
+                HEROKU_APP_NAME: 'travel-agency-alb-fe'
+                ZIP_FILE: "application.tgz"
