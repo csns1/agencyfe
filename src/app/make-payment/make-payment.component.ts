@@ -12,6 +12,7 @@ import {UserService} from '../services/user.service';
 import {BookingService} from '../services/booking.service';
 import {ToastrService} from 'ngx-toastr';
 import {IPayPalConfig} from "ngx-paypal";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-makepayment',
@@ -52,7 +53,7 @@ export class MakePaymentComponent implements OnInit {
         }
       }
     }
-    ,hidePostalCode:true
+    , hidePostalCode: true
   };
 
 
@@ -61,7 +62,12 @@ export class MakePaymentComponent implements OnInit {
   };
 
 
-  constructor(private token: TokenStorageService, private stripeService: StripeService, private toastr: ToastrService, private bookingService: BookingService, private tokenService: TokenStorageService, private userService: UserService, private httpclient: HttpClient, private paymentService: PaymentService, private dataService: DataServiceService) {
+  constructor(private token: TokenStorageService,
+              private stripeService: StripeService,
+              private toastr: ToastrService, private bookingService: BookingService,
+              private tokenService: TokenStorageService,
+              private router: Router,
+              private userService: UserService, private httpclient: HttpClient, private paymentService: PaymentService, private dataService: DataServiceService) {
   }
 
   public paymentForm = new FormGroup({
@@ -126,6 +132,7 @@ export class MakePaymentComponent implements OnInit {
 
           this.bookingService.addBooking(body).subscribe(data => {
             this.toastr.success("Pagesa u krye me sukses!")
+            this.router.navigate(['bookings'])
           }, () => {
             this.toastr.error("Ka ndodhur nje gabim pagesa nuk mund te kryhet")
           })
@@ -147,8 +154,9 @@ export class MakePaymentComponent implements OnInit {
     body.totalPayment = this.customers.length * this.packageDates.pricePerPerson
     body.bookerId = this.userId;
 
-    this.paymentService.makePayment(body).subscribe(data=>{
-      window.open(  data['redirect_url'], "_blank");
+    this.paymentService.makePayment(body).subscribe(data => {
+
+      window.open(data['redirect_url'], "_blank");
     })
   }
 }

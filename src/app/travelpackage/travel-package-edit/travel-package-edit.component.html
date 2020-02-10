@@ -1,28 +1,28 @@
 <div *ngIf="toBeUpdated" class="container">
-  <h2>Editing Travel Package:</h2>
+  <h2>Modifiko Paketen Turistike:</h2>
   <div class="row">
     <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
       <div class="form-group">
-        <label for="name">Name</label>
+        <label for="name">Emri</label>
         <input type="text" id="name" class="form-control" name="name" [(ngModel)]="toBeUpdated.name"   required />
       </div>
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="description">Pershkrimi</label>
         <textarea class="form-control" id="description" name="description" [(ngModel)]="toBeUpdated.description"  required ></textarea>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary">Edit</button>
+        <button class="btn btn-primary">Modifiko</button>
       </div>
     </form>
     <hr>
-        <h2 >Destinations</h2>
+        <h2 >Destinacionet</h2>
         <div class="destinations">
           <table class="table table-hover" id="destTable" cellspacing="0">
             <thead>
             <tr>
-            <th>Destination Name</th>
-            <th>City</th>
-            <th>Number Of Nights</th>
+            <th>Emri</th>
+            <th>Qyteti</th>
+            <th>Numri i neteve</th>
             <th></th>
             </tr>
             </thead>
@@ -31,23 +31,23 @@
             <td> {{destination.destination.name}}</td>
             <td>{{destination.destination.city.name}}</td>
             <td> {{destination.numberOfNights}}</td>
-            <td><button class="btn btn-danger" (click)="removeDestination(destination.destination.id)">Remove</button></td>
+            <td><button class="btn btn-danger" (click)="removeDestination(destination.destination.id)">Fshi</button></td>
           </tr>
             </tbody>
           </table>
-          <button class="btn btn-info" (click)="showDestinationModal()">Add New Destination</button>
+          <button class="btn btn-info" (click)="showDestinationModal()">Shto Destinacion</button>
         </div>
     <hr>
-    <h2 >Dates Available</h2>
+    <h2 >Datat e Udhetimeve</h2>
     <div class="dates">
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let date of packageDatesObs | async">{{getDate(date.startTime)}} <span class="pull-right"><i class="fa fa-times" aria-hidden="true" (click)="removePackageDate(date.id)"></i></span></li>
       </ul>
-      <button class="btn btn-info" (click)="showDatesModal()">Add New Date</button>
+      <button class="btn btn-info" (click)="showDatesModal()">Shto Date</button>
     </div>
   </div>
   <hr>
-  <h2>Photos</h2>
+  <h2>Foto</h2>
   <div class="row" >
     <div class="col-sm-2 imgUp" *ngFor="let imgSrc of imgObs | async">
       <div *ngIf="imgSrc=='none'" class="imagePreview"></div>
@@ -66,20 +66,20 @@
 
   <form>
     <div class="form-group ">
-  <label for="newDestination">Select a new destination to add:</label>
+  <label for="newDestination">Zgjidh nje destinacion:</label>
   <select class="form-control" id="newDestination" [(ngModel)]="newDestination" [ngModelOptions]="{standalone: true}">
     <option *ngFor="let destination of allDestination" value="{{destination.id}}">{{destination.name}}</option>
   </select>
     </div>
     <div class="form-group">
-      <label for="nrNights" class="col-2 col-form-label">Number</label>
+      <label for="nrNights" class="col-2 col-form-label">Numri i neteve</label>
       <div class="col-10">
         <input class="form-control" type="number" [(ngModel)]="newDestinationNrNights" [ngModelOptions]="{standalone: true}" id="nrNights">
       </div>
     </div>
     <div class="form-group ">
 
-    <button class="btn btn-success" (click)="addNewDestination()">Add</button>
+    <button class="btn btn-success" (click)="addNewDestination()">Shto</button>
     </div>
   </form>
   </div>
@@ -89,25 +89,25 @@
 
     <form>
       <div class="form-group ">
-        <label >Start Date:</label>
+        <label >Data E Nisjes:</label>
         <angular2-date-picker [(ngModel)]="startDate" [settings]="settings " [ngModelOptions]="{standalone: true}"  (ngModelChange)="$event >= today && startDate == $event"></angular2-date-picker>
       </div>
 
       <div class="form-group">
-        <label for="pricePerPerson" class="col-2 col-form-label">Price Per Person</label>
+        <label for="pricePerPerson" class="col-2 col-form-label">Cmimi per person</label>
         <div class="col-10">
           <input class="form-control" type="number" [(ngModel)]="pricePerPerson" [ngModelOptions]="{standalone: true}" id="pricePerPerson">
         </div>
       </div>
       <div class="form-group">
-        <label for="totalPersons" class="col-2 col-form-label">Total Number Of Persons</label>
+        <label for="totalPersons" class="col-2 col-form-label">Numri total i personave</label>
         <div class="col-10">
           <input class="form-control" type="number" [(ngModel)]="totalPersons" [ngModelOptions]="{standalone: true}" id="totalPersons">
         </div>
       </div>
       <div class="form-group ">
 
-        <button class="btn btn-success" (click)="addNewDate()">Add</button>
+        <button class="btn btn-success" (click)="addNewDate()">Shto</button>
       </div>
     </form>
   </div>

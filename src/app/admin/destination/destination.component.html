@@ -1,57 +1,129 @@
-<div class="container container mt-4 mb-5">
-  <div class="row">
-    <div class="col-md-4" *ngIf="countryList">
-      <h3 class="display-4 text-center"> Countries</h3>
-      <hr class="bg-dark mb-4 w-25">
-      <ngx-select-dropdown *ngIf="countryList&&countryConfig" [config]="countryConfig" [options]="getCountryOptions()"
-                           [(ngModel)]="selectedCountry"></ngx-select-dropdown>
-      <div *ngIf="toAddNew" class="p-3 row mx-auto" style="text-align: center;padding:1em;">
-        <label>Country Name</label>
-        <input type="text" [(ngModel)]="newCountryName" [ngModelOptions]="{standalone: true}"/>
-        <button class="btn btn-success" (click)="addCountry()">Add</button>
-      </div>
-      <div style="text-align: center;padding:1em;">
-      <div class="p-3 row mx-auto">
-        <button class="btn btn-info" (click)="showNew()">Add New</button>
-        <button class="btn btn-danger" (click)="removeCountry()">Remove</button>
-      </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <h3 class="display-4 text-center"> Cities </h3>
-      <hr class="bg-dark mb-4 w-25">
-      <ngx-select-dropdown *ngIf="cities&&cityConfig" [config]="cityConfig" [options]="getCityOptions()"
-                           [(ngModel)]="selectedCiy"></ngx-select-dropdown>
-      <div *ngIf="toAddNewCity" class="p-3 row mx-auto" style="text-align: center;padding:1em;">
-        <label>City Name</label>
-        <input type="text" [(ngModel)]="newCityName" [ngModelOptions]="{standalone: true}"/>
-        <button class="btn btn-success" (click)="addCity()">Add</button>
-      </div>
-      <div style="text-align: center;padding:1em;">
-        <div class="p-3 row mx-auto">
-          <button class="btn btn-info" (click)="showNewCity()">Add New</button>
-          <button class="btn btn-danger" (click)="removeCity()">Remove</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <h3 class="display-4 text-center"> Destinations </h3>
-      <hr class="bg-dark mb-4 w-25">
-      <ngx-select-dropdown *ngIf="destinationList&&destinationConfig" [config]="destinationConfig" [options]="getDestinationOptions()"
-                           [(ngModel)]="selectedDestination"></ngx-select-dropdown>
-      <div *ngIf="toAddNewDestination" class="p-3 row mx-auto" style="text-align: center;padding:1em;">
-        <label>Destination Name</label>
-        <input type="text" [(ngModel)]="newDestinationName" [ngModelOptions]="{standalone: true}"/>
-        <label>Destination Description</label>
-        <input type="text" [(ngModel)]="newDestinationDescription" [ngModelOptions]="{standalone: true}"/>
-        <button class="btn btn-success" (click)="addDestination()">Add</button>
-      </div>
-      <div style="text-align: center;padding:1em;">
-        <div class="p-3 row mx-auto">
-          <button class="btn btn-info" (click)="showNewDestination()">Add New</button>
-          <button class="btn btn-danger" (click)="removeDestination()">Remove</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!--<mat-card >-->
+<!--  <mat-card-header>-->
+<!--    <mat-card-title>Destinacion i Ri</mat-card-title>-->
+<!--  </mat-card-header>-->
+
+
+<!--  <input type="text" id="defaultContactFormName" class="form-control mb-4" placeholder="Emri">-->
+
+<!--  <input type="email" id="defaultContactFormEmail" class="form-control mb-4" placeholder="Pershkrimi">-->
+
+
+<!--  <button class="btn btn-info btn-block" type="submit">Send</button>-->
+<!--</mat-card>-->
+
+
+<mat-card class="example-form">
+  <mat-card-header>
+    <mat-card-title>Destinacion i Ri</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="fontbig">
+    <mat-label>Shteti</mat-label>
+
+    <angular2-multiselect [data]="listaShteteve"
+                          [(ngModel)]="shteti"
+                          [settings]="settings"
+                          (onSelect)="onItemSelect($event)"
+                          (onDeSelect)="onShtetDeselect()"
+                          (onAddFilterNewItem)="shtoShtet($event)">
+    </angular2-multiselect>
+    <br/>
+    <mat-card-content *ngIf="shteti.length>0">
+      <mat-label>Qyteti</mat-label>
+
+      <angular2-multiselect [data]="listaQyteteve"
+                            [(ngModel)]="qyteti"
+                            [settings]="settingsQyteti"
+                            (onSelect)="onQytetSelect($event)"
+                            (onDeSelect)="onQytetDeselect()"
+                            (onAddFilterNewItem)="shtoQytet($event)">
+      </angular2-multiselect>
+      <br/></mat-card-content>
+
+    <br/>
+
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Emri</mat-label>
+      <input  [(ngModel)]="emri" matInput placeholder="Emri" [required]="true">
+    </mat-form-field>
+    <br/>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Pershkrimi</mat-label>
+      <textarea  [(ngModel)]="pershkrimi" matInput placeholder="Pershkrimi..."  [required]="true"></textarea>
+    </mat-form-field>
+    <br/>
+    <br/>
+
+    <button (click)="shtoDestinacion()" mat-raised-button color="primary" style="margin-right:5px;">Shto Destinacion</button>
+
+  </mat-card-content>
+</mat-card>
+
+<!--  -->
+<!--  <div class="row">-->
+
+
+<!--    <angular2-multiselect [data]="listaShteteve"-->
+<!--                          [(ngModel)]="shteti"-->
+<!--                          [settings]="settings"-->
+<!--                          (onSelect)="onItemSelect($event)"-->
+<!--                          (onAddFilterNewItem)="shtoShtet($event)" >-->
+<!--    </angular2-multiselect>-->
+<!--    <div class="col-md-4" *ngIf="countryList">-->
+<!--      <h3 class="display-4 text-center"> Countries</h3>-->
+<!--      <hr class="bg-dark mb-4 w-25">-->
+<!--      <ngx-select-dropdown *ngIf="countryList&&countryConfig" [config]="countryConfig" [options]="getCountryOptions()"-->
+<!--                           [(ngModel)]="selectedCountry"></ngx-select-dropdown>-->
+<!--      <div *ngIf="toAddNew" class="p-3 row mx-auto" style="text-align: center;padding:1em;">-->
+<!--        <label>Country Name</label>-->
+<!--        <input type="text" [(ngModel)]="newCountryName" [ngModelOptions]="{standalone: true}"/>-->
+<!--        <button class="btn btn-success" (click)="addCountry()">Add</button>-->
+<!--      </div>-->
+<!--      <div style="text-align: center;padding:1em;">-->
+<!--        <div class="p-3 row mx-auto">-->
+<!--          <button class="btn btn-info" (click)="showNew()">Add New</button>-->
+<!--          <button class="btn btn-danger" (click)="removeCountry()">Remove</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-md-4">-->
+<!--      <h3 class="display-4 text-center"> Cities </h3>-->
+<!--      <hr class="bg-dark mb-4 w-25">-->
+<!--      <ngx-select-dropdown *ngIf="cities&&cityConfig" [config]="cityConfig" [options]="getCityOptions()"-->
+<!--                           [(ngModel)]="selectedCiy"></ngx-select-dropdown>-->
+<!--      <div *ngIf="toAddNewCity" class="p-3 row mx-auto" style="text-align: center;padding:1em;">-->
+<!--        <label>City Name</label>-->
+<!--        <input type="text" [(ngModel)]="newCityName" [ngModelOptions]="{standalone: true}"/>-->
+<!--        <button class="btn btn-success" (click)="addCity()">Add</button>-->
+<!--      </div>-->
+<!--      <div style="text-align: center;padding:1em;">-->
+<!--        <div class="p-3 row mx-auto">-->
+<!--          <button class="btn btn-info" (click)="showNewCity()">Add New</button>-->
+<!--          <button class="btn btn-danger" (click)="removeCity()">Remove</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-md-4">-->
+<!--      <h3 class="display-4 text-center"> Destinations </h3>-->
+<!--      <hr class="bg-dark mb-4 w-25">-->
+<!--      <ngx-select-dropdown *ngIf="destinationList&&destinationConfig" [config]="destinationConfig"-->
+<!--                           [options]="getDestinationOptions()"-->
+<!--                           [(ngModel)]="selectedDestination"></ngx-select-dropdown>-->
+<!--      <div *ngIf="toAddNewDestination" class="p-3 row mx-auto" style="text-align: center;padding:1em;">-->
+<!--        <label>Destination Name</label>-->
+<!--        <input type="text" [(ngModel)]="newDestinationName" [ngModelOptions]="{standalone: true}"/>-->
+<!--        <label>Destination Description</label>-->
+<!--        <input type="text" [(ngModel)]="newDestinationDescription" [ngModelOptions]="{standalone: true}"/>-->
+<!--        <button class="btn btn-success" (click)="addDestination()">Add</button>-->
+<!--      </div>-->
+<!--      <div style="text-align: center;padding:1em;">-->
+<!--        <div class="p-3 row mx-auto">-->
+<!--          <button class="btn btn-info" (click)="showNewDestination()">Add New</button>-->
+<!--          <button class="btn btn-danger" (click)="removeDestination()">Remove</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->

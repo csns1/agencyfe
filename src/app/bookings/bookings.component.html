@@ -1,39 +1,30 @@
 <div *ngIf='bookings && bookings.length'>
-<mat-form-field>
 
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search  your booking">
-</mat-form-field>
 
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
 
-    <!-- id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
-      <td mat-cell *matCellDef="let bookings"> {{bookings.id}} </td>
-      <td mat-footer-cell *matFooterCellDef> Total </td>
-  </ng-container>
-      
+
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Emri </th>
     <td mat-cell *matCellDef="let bookings"> {{bookings.packageDate.packageName}} </td>
-   
+
   </ng-container>
       <ng-container matColumnDef="booker">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Booker Name </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Rezervuesi </th>
         <td mat-cell *matCellDef="let bookings" > {{bookings.booker.firstName+" "+bookings.booker.lastName}} </td>
         <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td>
       </ng-container>
 
     <!-- Date Column -->
     <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Booking date </th>
-      <td mat-cell *matCellDef="let bookings"> {{getDate(bookings.bookDate)}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Data e rezervimit </th>
+      <td mat-cell *matCellDef="let bookings"> {{getDate(bookings.packageDate.startTime)}} </td>
     </ng-container>
 
     <!-- Price Column -->
     <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Payment </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Pagesa totale </th>
       <td mat-cell *matCellDef="let bookings" > {{bookings.totalPayment}} </td>
       <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td>
     </ng-container>
@@ -56,7 +47,7 @@
 </div>
 </div>
 <div *ngIf="noData" class='else'>
-  <img src='./assets/nobookings.png'alt='no-booking-yet'>No reservations made yet !</div>
+  <img src='./assets/nobookings.png'alt='no-booking-yet'>Asnje rezervim nuk eshte ber !</div>
 <ng-template #showCustomers>
 
     <div class="container-fluid">

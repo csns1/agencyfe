@@ -14,7 +14,7 @@ import {PackageGetDto, PackagePostDto} from '../../interfaces/PackageDtos';
 import {TravelPackageService} from '../../services/travel-package.service';
 import {DestinationGetDto} from '../../interfaces/DestinationDtos';
 // @ts-ignore
-import {DestinationPerPackageGetDto} from './/src/app/interfaces/DestinationPerPackagesDtos';
+import {DestinationPerPackageGetDto} from './/src/app/interfaces/DestinationPerPackagesDtos.ts';
 import {DestinationService} from '../../services/destination-service.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 // @ts-ignore
@@ -37,7 +37,7 @@ export class TravelPackageEditComponent implements OnInit {
   downloadUrls: string[] = [];
   allPercentage: Observable<any>;
   toBeUpdated: PackageGetDto;
-  form: PackagePostDto = {};
+  form: PackagePostDto = {} as PackagePostDto;
   allDestinations: Observable<DestinationPerPackageGetDto>;
   images: string[];
   imgObs: Observable<string[]>;
@@ -196,7 +196,7 @@ export class TravelPackageEditComponent implements OnInit {
   }
 
   addNewDestination() {
-    let destinationPerPackage: DestinationPerPackagePostDto = {};
+    let destinationPerPackage: DestinationPerPackagePostDto = {} as DestinationPerPackagePostDto ;
     destinationPerPackage.destinationId = +this.newDestination;
     destinationPerPackage.numberOfNights = this.newDestinationNrNights;
     this.addDestination(destinationPerPackage);
@@ -227,7 +227,7 @@ export class TravelPackageEditComponent implements OnInit {
 
   addNewDate() {
     var packageDatePostDto: PackageDatesPostDto = {} as PackageDatesPostDto;
-    packageDatePostDto.arrivalTime = new Date().toISOString()
+    packageDatePostDto.arrivalTime = new Date(this.startDate).toISOString()
     packageDatePostDto.startTime = new Date(this.startDate).toISOString()
     packageDatePostDto.pricePerPerson = this.pricePerPerson;
     packageDatePostDto.numberOfPersons = this.totalPersons

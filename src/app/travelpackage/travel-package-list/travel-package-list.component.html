@@ -1,16 +1,19 @@
-
 <div class="row">
-  <div class="col-md-6" >  <h2>Travel Packages<button class="btn btn-success" (click)="showNewPackagePopup(createNewPackageModal)">New</button></h2></div>
-  <div class="col-md-6" ></div>
+  <div class="col-md-6">
+    <h2>Paketat Turistike
+      <button class="btn btn-success" (click)="showNewPackagePopup(createNewPackageModal)">Shto</button>
+    </h2>
+  </div>
+  <div class="col-md-6"></div>
 </div>
 
 <table class="table table-hover" cellspacing="0">
   <thead>
   <tr>
-    <th>Name</th>
-    <th>Description</th>
+    <th>Emri</th>
+    <th>Pershkrimi</th>
 
-    <th>Operations</th>
+    <th>Opsionet</th>
   </tr>
   </thead>
   <tbody>
@@ -18,14 +21,12 @@
     <td>{{package.name}}</td>
     <td>{{package.description}}</td>
     <td>
-      <div  class="btn-group">
-        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-          <span class="fa fa-bars" title="Toggle dropdown menu"></span>
-        </a>
-        <ul class="dropdown-menu">
-          <li><a class="btn" (click)="updatePackage(package)"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>
-          <li><a class="btn" (click)="delete(package,deleteTemplate)"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
-        </ul>
+      <div class="btn-group">
+        <a class="btn btn-sm btn-default" (click)="updatePackage(package)"><i class="fa fa-pencil fa-fw"></i></a>
+
+        <a class="btn btn-sm btn-default" (click)="delete(package,deleteTemplate)"><i class="fa fa-trash-o fa-fw"></i></a>
+
+
       </div>
     </td>
   </tr>
@@ -33,27 +34,27 @@
 </table>
 <ng-template #deleteTemplate>
   <div class="container-fluid modal-body text-center">
-    <p>Do you want to confirm?</p>
-    <button type="button" class="btn btn-default" (click)="confirmDelete()" >Yes</button>
-    <button type="button" class="btn btn-primary" (click)="modalRef.hide()" >No</button>
+    <p>Jeni i sigurt?</p>
+    <button type="button" class="btn btn-danger" style="margin-right: 10px" (click)="confirmDelete()">Po</button>
+    <button type="button" class="btn btn-info" (click)="modalRef.hide()">Jo</button>
   </div>
 </ng-template>
 <ng-template #createNewPackageModal>
   <div class="container-fluid modal-body">
     <form (ngSubmit)="createNewPackage()">
       <div class="form-group ">
-        <label >Travel Package Name</label>
-        <input class="form-control" name ="name" type="text" [(ngModel)]="newPackage.name" required>
+        <label>Emri</label>
+        <input class="form-control" name="name" type="text" [(ngModel)]="newPackage.name" required>
 
       </div>
       <div class="form-group">
-        <label class="col-2 col-form-label">Description</label>
+        <label class="col-2 col-form-label">Pershkrimi</label>
         <div class="col-10">
           <textarea class="form-control" name="description" [(ngModel)]="newPackage.description" required></textarea>
         </div>
       </div>
       <div class="form-group ">
-        <button class="btn btn-success">Add</button>
+        <button class="btn btn-success">Shto</button>
       </div>
     </form>
   </div>

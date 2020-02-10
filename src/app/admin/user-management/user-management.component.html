@@ -1,15 +1,15 @@
-<h1>Users<a (click)="createUserPopup()"><i class="pointer fa fa-user-plus" aria-hidden="true"></i></a> </h1>
+<h1>Perdoruesit<a (click)="createUserPopup()"><i class="pointer fa fa-user-plus" aria-hidden="true"></i></a></h1>
 <table class="table table-hover" cellspacing="0">
   <thead>
   <tr>
-    <th>First Name</th>
-    <th>Last Name</th>
+    <th>Emri</th>
+    <th>Mbiemeri</th>
     <th>Username</th>
     <th>Email</th>
-    <th>Phone</th>
-    <th>Address</th>
-    <th>Role</th>
-    <th>Operations</th>
+    <th>Telefoni</th>
+    <th>Adresa</th>
+    <th>Roli</th>
+    <th>Opsionet</th>
   </tr>
   </thead>
   <tbody>
@@ -27,15 +27,16 @@
           <span class="fa fa-bars" title="Toggle dropdown menu"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><a class="btn" (click)="updateRole(user,updateRoleTemplate)"><i class="fa fa-pencil fa-fw"></i> Role</a></li>
+          <li><a class="btn" (click)="updateRole(user,updateRoleTemplate)"><i class="fa fa-pencil fa-fw"></i> Role</a>
+          </li>
           <li><a class="btn" (click)="delete(user,deleteTemplate)"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
         </ul>
       </div>
-      <ng-template  #adminDiv>
+      <ng-template #adminDiv>
         <div class="btn-group">
-        <a class="btn btn-primary dropdown-toggle disabled" data-toggle="dropdown" href="#">
-          <span class="fa fa-bars" title="Toggle dropdown menu"></span>
-        </a>
+          <a class="btn btn-primary dropdown-toggle disabled" data-toggle="dropdown" href="#">
+            <span class="fa fa-bars" title="Toggle dropdown menu"></span>
+          </a>
         </div>
       </ng-template>
     </td>
@@ -44,9 +45,9 @@
 </table>
 <ng-template #deleteTemplate>
   <div class="modal-body text-center">
-    <p>Do you want to confirm?</p>
-    <button type="button" class="btn btn-default" (click)="confirmDelete()" >Yes</button>
-    <button type="button" class="btn btn-primary" (click)="modalRef.hide()" >No</button>
+    <p>Jeni i sigurt?</p>
+    <button type="button" class="btn btn-default" (click)="confirmDelete()">Po</button>
+    <button type="button" class="btn btn-primary" (click)="modalRef.hide()">Jo</button>
   </div>
 </ng-template>
 <ng-template #updateCreateUser>
@@ -60,78 +61,86 @@
           </div>
           <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <div class="form-group">
-              <label for="firstName">First Name</label>
-              <input type="text" class="form-control" name="name" [(ngModel)]="newUser.firstName" #name="ngModel" required />
+              <label for="firstName">Emri</label>
+              <input type="text" class="form-control" name="name" [(ngModel)]="newUser.firstName" #name="ngModel"
+                     required/>
               <div *ngIf="f.submitted && name.invalid">
-                <div *ngIf="name.errors.required">FirstName is required</div>
+                <div *ngIf="name.errors.required">Vendos emrin</div>
               </div>
             </div>
             <div class="form-group">
-              <label for="lastName">Last Name</label>
-              <input type="text" class="form-control" name="name" [(ngModel)]="newUser.lastName" #name="ngModel" required />
+              <label for="lastName">Mbiemri</label>
+              <input type="text" class="form-control" name="name" [(ngModel)]="newUser.lastName" #name="ngModel"
+                     required/>
               <div *ngIf="f.submitted && name.invalid">
-                <div *ngIf="name.errors.required">LastName is required</div>
+                <div *ngIf="name.errors.required">Vendos mbiemrin</div>
               </div>
             </div>
             <div class="form-group">
               <label for="username">Username</label>
               <input type="text" class="form-control" name="username" [(ngModel)]="newUser.username" #username="ngModel"
-                     required />
+                     required/>
               <div *ngIf="f.submitted && username.invalid">
-                <div *ngIf="username.errors.required">Username is required</div>
+                <div *ngIf="username.errors.required">Vendos username</div>
               </div>
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="text" class="form-control" name="email" [(ngModel)]="newUser.email" #email="ngModel" required email />
+              <input type="text" class="form-control" name="email" [(ngModel)]="newUser.email" #email="ngModel" required
+                     email/>
               <div *ngIf="f.submitted && email.invalid">
-                <div *ngIf="email.errors.required">Email is required</div>
-                <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                <div *ngIf="email.errors.required">Vendos email</div>
+                <div *ngIf="email.errors.email">Email duhet te jete unik</div>
               </div>
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" [(ngModel)]="newUser.password" #password="ngModel"
-                     required minlength="6" />
+              <input type="password" class="form-control" name="password" [(ngModel)]="newUser.password"
+                     #password="ngModel"
+                     required minlength="6"/>
               <div *ngIf="f.submitted && password.invalid">
-                <div *ngIf="password.errors.required">Password is required</div>
-                <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+                <div *ngIf="password.errors.required">Vendos passwordin</div>
+                <div *ngIf="password.errors.minlength">Password duhet te jete me te pakten 6 karaktere</div>
               </div>
             </div>
             <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="text" class="form-control" name="phone" [(ngModel)]="newUser.phone" #name="ngModel" required />
+              <label for="phone">Telefoni</label>
+              <input type="text" class="form-control" name="phone" [(ngModel)]="newUser.phone" #name="ngModel"
+                     required/>
               <div *ngIf="f.submitted && name.invalid">
-                <div *ngIf="name.errors.required">Name is required</div>
+                <div *ngIf="name.errors.required">Vendos telefonin</div>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="address">Address</label>
-              <input type="text" class="form-control" name="address" [(ngModel)]="newUser.address" #name="ngModel" required />
+              <label for="address">Adresa</label>
+              <input type="text" class="form-control" name="address" [(ngModel)]="newUser.address" #name="ngModel"
+                     required/>
               <div *ngIf="f.submitted && name.invalid">
-                <div *ngIf="name.errors.required">Name is required</div>
+                <div *ngIf="name.errors.required">Vendos Adresen</div>
               </div>
             </div>
             <div class="form-group">
-              <label for="role">Role</label>
-              <select class="form-control form-control-sm" name="role" [(ngModel)]="newUser.role.name" #name="ngModel" >
+              <label for="role">Roli</label>
+              <select class="form-control form-control-sm" name="role" [(ngModel)]="newUser.role.name" #name="ngModel">
                 <option *ngFor="let role of roles" value="{{role.name}}">{{role.name}}</option>
               </select>
               <div *ngIf="f.submitted && name.invalid">
-                <div *ngIf="name.errors.required">Role is required</div>
+                <div *ngIf="name.errors.required">Vendos rolin</div>
               </div>
             </div>
             <div class="form-group">
-              <button class="btn btn-primary">Create New User</button>
+              <button class="btn btn-primary">Krijo Perdorues</button>
               <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
-                Creating new user failed!<br/>{{errorMessage}}
+                Krijimi i perdoruesit deshtoi!<br/>{{errorMessage}}
               </div>
             </div>
           </form>
 
         </div>
-      </div></div></div>
+      </div>
+    </div>
+  </div>
 </ng-template>
 <ng-template #updateRoleTemplate>
   <div class="row">
@@ -145,7 +154,7 @@
           <form name="form" (ngSubmit)="f.form.valid && editRole()" #f="ngForm" novalidate>
             <div class="form-group">
               <label for="role">Role</label>
-              <select class="form-control form-control-sm" name="role" [(ngModel)]="newRole" #name="ngModel" >
+              <select class="form-control form-control-sm" name="role" [(ngModel)]="newRole" #name="ngModel">
                 <option *ngFor="let role of roles" value="{{role.name}}">{{role.name}}</option>
               </select>
             </div>
@@ -155,5 +164,7 @@
           </form>
 
         </div>
-      </div></div></div>
+      </div>
+    </div>
+  </div>
 </ng-template>

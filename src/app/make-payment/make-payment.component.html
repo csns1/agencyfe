@@ -1,20 +1,22 @@
-<mat-card >
+<mat-card>
   <mat-card-header>
-      <mat-card-title>Blini paketen tuaj!{{totalPayment}}</mat-card-title>
+    <mat-card-title>Rezervoni paketen totali per tu paguar :{{totalPayment}}</mat-card-title>
   </mat-card-header>
-  <form class="paymentForm"  [formGroup]="paymentForm" (ngSubmit)="chargeCreditCard(paymentForm.value)" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <form class="paymentForm" [formGroup]="paymentForm" (ngSubmit)="chargeCreditCard(paymentForm.value)"
+        fxLayoutAlign="center center" fxLayoutGap="10px">
     <mat-card-content>
       <mat-form-field>
-        <input  formControlName="name"  matInput placeholder="Emri i Kartes"    type="name" name="name"  required/>
+        <input formControlName="name" matInput placeholder="Emri i Kartes" type="name" name="name" required/>
       </mat-form-field>
-
-      <ngx-stripe-card  [options]="cardOptions" [elementsOptions]="elementsOptions" ></ngx-stripe-card>
+      <br/>
+      <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+      <br/>
       <mat-card-actions>
-        <button mat-raised-button color="primary" [disabled]="!paymentForm.valid">Buy now</button>
+        <button mat-raised-button color="primary" [disabled]="!paymentForm.valid">Paguaj</button>
 
       </mat-card-actions>
     </mat-card-content>
   </form>
-<button class="btn btn-primary" (click)="payWithPaypal()">Pay With Paypal</button>
+  <button class="btn btn-primary" (click)="payWithPaypal()">Paguaj me Paypal</button>
 </mat-card>
 

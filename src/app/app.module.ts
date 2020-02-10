@@ -41,6 +41,7 @@ import {PrintService} from './services/print.service';
 import {PackageDatesAdminComponent} from './package-dates-admin/package-dates-admin.component';
 import {NgxPayPalModule} from 'ngx-paypal';
 import {CompletePaymentComponent} from './make-payment/complete-payment/complete-payment.component';
+import {AngularMultiSelectModule} from "angular2-multiselect-dropdown";
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import {CompletePaymentComponent} from './make-payment/complete-payment/complete
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    AngularMultiSelectModule,
     HttpClientModule,
     SidebarJSModule.forRoot(),
     ModalModule.forRoot(),

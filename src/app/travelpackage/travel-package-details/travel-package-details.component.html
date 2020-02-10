@@ -1,7 +1,7 @@
 <div class="container" *ngIf="travelPackageDetail">
   <a routerLink="/home">
     <button type="button" class="btn btn-default btn-sm">
-      <span class="glyphicon glyphicon-chevron-left"></span> Back
+      <span class="glyphicon glyphicon-chevron-left"></span> Kthehu
     </button>
   </a>
   <div class="card">
@@ -20,18 +20,18 @@
             <div class="carousel-inner">
 
               <div *ngFor="let img of travelPackageDetail.images;let i = index" class="item {{getActiveClass(i)}}">
-                <img src="{{img}}" alt="PHOTO" style="width:100%;">
+                <img src="{{img}}" alt="PHOTO" style="width:100%;height: 350px">
               </div>
             </div>
 
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
               <span class="glyphicon glyphicon-chevron-left"></span>
-              <span class="sr-only">Previous</span>
+              <span class="sr-only">Para</span>
             </a>
             <a class="right carousel-control" href="#myCarousel" data-slide="next">
               <span class="glyphicon glyphicon-chevron-right"></span>
-              <span class="sr-only">Next</span>
+              <span class="sr-only">Pas</span>
             </a>
           </div>
 
@@ -42,26 +42,27 @@
             {{travelPackageDetail.description}}
           </p>
           <h3>
-            Destinations
+            Destinacionet
           </h3>
-          <p *ngFor="let dest of travelPackageDetail.destinationList">{{dest.numberOfNights}} nights
-            in {{dest.destination.name}} ({{dest.destination.city.name}}) </p>
-          <h4 class="price">Price Per Person: <span>{{priceRange}}</span></h4>
-          <h4>Available Dates &nbsp;<div class="btn-group">
-            <label *ngFor="let date of travelPackageDetail.packageDates" class="btn btn-primary"
-                   [(ngModel)]="radioModel"
-                   btnRadio="{{date.id}}" tabindex="0" role="button"
-                   (click)="changePrice()">{{getDateFromTime(date.arrivalTime * 1000)}}</label>
+          <p *ngFor="let dest of travelPackageDetail.destinationList">
+            {{dest.destination.name}} ({{dest.destination.city.name}}) {{getNetet(dest)}}</p>
+          <h4 class="price">Cmimi per person: <span>{{priceRange}}</span></h4>
+          <h4>Datat
+            <div class="btn-group">
+              <label *ngFor="let date of travelPackageDetail.packageDates" class="btn btn-primary"
+                     [(ngModel)]="radioModel"
+                     btnRadio="{{date.id}}" tabindex="0" role="button"
+                     (click)="changePrice()">{{getDateFromTime(date.arrivalTime * 1000)}}</label>
 
-          </div>
+            </div>
           </h4>
           <button *ngIf="logged" class="btn btn-primary" (click)="showPopup(clients)">
             <i class="fa fa-shopping-cart">
-              Buy Now!
+              Rezervo Tani!
             </i>
           </button>
           <div *ngIf="!logged" class="error">
-            <p>Login To Buy</p>
+            <p>Identifikohu per te rezervuar</p>
           </div>
 
         </div>
@@ -111,15 +112,15 @@
 
         </tbody>
       </table>
-  <span class="clearfix"></span>
+      <span class="clearfix"></span>
       <div class="container-fluid" style="padding-bottom: 30px;">
-        <button class="btn btn-success btn-sm" type="button" (click)="addFieldValue()" >
-          Add Person
+        <button class="btn btn-success btn-sm" type="button" (click)="addFieldValue()">
+          Shto Person
         </button>
         <span class="clearfix"></span>
 
         <div style="float: right">
-          <button class="btn btn-primary btn-sm" type="button" (click)="openPayment()">Buy</button>
+          <button class="btn btn-primary btn-sm" type="button" (click)="openPayment()">Rezervo</button>
         </div>
       </div>
     </div>

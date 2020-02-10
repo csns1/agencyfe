@@ -7,7 +7,7 @@ export interface BookingGetDto {
     id: number,
     bookDate:string,
     booker: User,
-  customerList: Array<CustomerDto>,
+    customerList: Array<CustomerDto>,
     totalPayment: number,
     packageDate: PackageDatesDto
 };

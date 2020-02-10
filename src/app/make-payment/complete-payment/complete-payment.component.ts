@@ -54,14 +54,14 @@ export class CompletePaymentComponent implements OnInit {
 
       if (data['status'] == 'success'){
         Swal.fire(
-          'Payment Completed',
-          'Your Payment has been completed.',
+          'Pagesa u kompletua',
+          'Pagesa eshte kryer me sukses.',
           'success'
         ).then(()=>this.router.navigate(['home']))
       }
       else {
         Swal.fire(
-          'Payment Error!',
+          'Gabim gjate pageses!',
           data['message'],
           'error'
         ).then(res=>this.router.navigate(['home']))

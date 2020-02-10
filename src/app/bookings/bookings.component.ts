@@ -19,7 +19,7 @@ import {CustomerDto} from '../interfaces/customerDto';
 
 export class BookingsComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'booker', 'date', 'price', 'cancel'];
+  displayedColumns: string[] = [ 'name', 'booker', 'date', 'price', 'cancel'];
   dataSource: MatTableDataSource<BookingGetDto>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -43,7 +43,6 @@ this.initData();
         this.bookings = data;
         this.dataSource = new MatTableDataSource(this.bookings);
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
         this.noData=data.length==0
       },
       error => {
@@ -96,7 +95,6 @@ this.initData();
     this.getObservableList().subscribe(data=>{
       data.forEach(e=>{
         if(e.id==id){
-          debugger;
           this.toBeShowed=e;
           this.customerObservable=of(e.customerList)
           this.customerModal=this.modalService.show(templateRef)

@@ -11,16 +11,16 @@
         </a>
       </li>
       <li>
-        <a class="routerA" routerLink="/home">Home</a>
+        <a class="routerA" routerLink="/home">Faqe Kryesore</a>
       </li>
 
       <li *ngIf="isAdmin()" >
-        <a class="routerA" routerLink="/admin">User Management</a>
+        <a class="routerA" routerLink="/admin">Perdoruesit</a>
       </li>
-      <li *ngIf="authority"><div> <a  routerLink="/bookings" class="routerA bookings">Bookings</a>  </div></li>
-      <li *ngIf="authority&&!isKlient()"><div> <a  routerLink="/travel-packages" class="routerA">Travel Packages</a>  </div></li>
-      <li *ngIf="isAdmin()"><div> <a  routerLink="/admin/destination" class="routerA">Destinations</a>  </div></li>
-      <li *ngIf="isAdmin()"><div> <a  routerLink="admin/package-dates" class="routerA">Travel Package Dates</a>  </div></li>
+      <li *ngIf="authority"><div> <a  routerLink="/bookings" class="routerA bookings">Rezervimet</a>  </div></li>
+      <li *ngIf="authority&&!isKlient()"><div> <a  routerLink="/travel-packages" class="routerA">Paketa Turistike</a>  </div></li>
+      <li *ngIf="isAdmin()"><div> <a  routerLink="/admin/destination" class="routerA">Destinacionet</a>  </div></li>
+      <li *ngIf="isAdmin()"><div> <a  routerLink="admin/package-dates" class="routerA">Datat e Paketave Turistike</a>  </div></li>
 
     </ul>
   </nav>

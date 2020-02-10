@@ -5,8 +5,9 @@ import {User} from '../interfaces/User';
 // @ts-ignore
 import {PackageGetDto, PackagePostDto} from '../interfaces/PackageDtos';
 import {HttpClient} from '@angular/common/http';
-import {DestinationGetDto} from '../interfaces/DestinationDtos';
+import {DestinationGetDto, DestinationPostDto} from '../interfaces/DestinationDtos';
 import {PackageDatesDto, PackageDatesPostDto} from '../interfaces/PackageDatesDto';
+import {DestinationPerPackagePostDto} from "../interfaces/DestinationPerPackagesDtos";
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class TravelPackageService {
   removeDestination(packageId: number, destinationId: number) {
     return this.http.delete(this.serverUrl+`/packages/`+packageId+`/destination/`+destinationId);
   }
-  addDestination(packageId: number, destination:DestinationGetDto ) {
+  addDestination(packageId: number, destination:DestinationPerPackagePostDto ) {
     return  this.http.post(this.serverUrl+`/packages/`+packageId+`/destination`,destination)
   }
   addPackageDate(packageId:number,packageDate:PackageDatesPostDto){
@@ -50,7 +51,7 @@ export class TravelPackageService {
   editPackageDetails(packageId: number, packagePostDto: PackagePostDto) {
   return this.http.patch<PackageGetDto>(this.serverUrl+`/packages/`+packageId,packagePostDto)
   }
-  createTravelPackage(packagePostDto:PackageGetDto){
+  createTravelPackage(packagePostDto:PackagePostDto){
     return this.http.post<PackageGetDto>(this.serverUrl+`/packages`,packagePostDto)
   }
 
